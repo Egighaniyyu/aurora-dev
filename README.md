@@ -1,4 +1,4 @@
-<p align="center"><img src="/public/assets/logo-white.svg" width="400" alt="Aurora Logo"></p>
+<p align="center"><img src="[/public/assets/logo-white.svg](https://raw.githubusercontent.com/Egighaniyyu/aurora-dev/c41112bb7c606630197b26b36888ee37c7ec6da5/public/assets/img/logo-white.svg)" width="400" alt="Aurora Logo"></p>
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
