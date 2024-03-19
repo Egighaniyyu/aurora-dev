@@ -3,20 +3,23 @@
     aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul class="space-y-2">
-            <li class="menu active rounded-lg">
-                <a href="#" class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
+            <li class="menu rounded-lg @if (request()->routeIs('resepsionis.index')) active @endif">
+                <a href="{{ route('resepsionis.index') }}"
+                    class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
                     <i data-feather="grid" class="menu-icon"></i>
                     <span class="menu-label">Dashboard</span>
                 </a>
             </li>
-            <li class="menu rounded-lg">
-                <a href="#" class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
+            <li class="menu rounded-lg @if (request()->routeIs('data-pasien.index')) active @endif">
+                <a href="{{ route('data-pasien.index') }}"
+                    class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
                     <i data-feather="users" class="menu-icon"></i>
                     <span class="menu-label">Antrian Pasien</span>
                 </a>
             </li>
-            <li class="menu rounded-lg">
-                <a href="#" class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
+            <li class="menu rounded-lg @if (request()->routeIs('pemeriksaan-pasien.index')) active @endif">
+                <a href="{{ route('pemeriksaan-pasien.index') }}"
+                    class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
                     <i data-feather="clipboard" class="menu-icon"></i>
                     <span class="menu-label">Pemeriksaan Pasien</span>
                 </a>

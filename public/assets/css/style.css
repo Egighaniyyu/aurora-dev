@@ -10,6 +10,7 @@ body {
     justify-content: center;
     align-items: center;
     border-radius: 12px;
+    gap: 8px;
 
     /* text-base/medium */
     font-family: Poppins;
@@ -19,12 +20,45 @@ body {
     line-height: 140%; /* 22.4px */
 }
 
+.btn-small {
+    display: flex;
+    padding: 10px 16px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    gap: 8px;
+
+    /* text-sm/medium */
+    font-family: Poppins;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 19.6px */
+}
+
 .btn-white {
     color: var(--Color-Blue, #0eb0f1);
     text-align: center;
 
     background-color: #fff;
     box-shadow: 0px 6px 32px 0px rgba(6, 155, 109, 0.2);
+}
+
+.btn-gradient-blue {
+    color: #fff;
+    text-align: center;
+
+    background: var(
+        --Purple-Gradient,
+        linear-gradient(287deg, #0eb0f1 0.11%, #6dd5ed 101.7%)
+    );
+}
+
+.btn-secondary-blue {
+    color: #0eb0f1;
+    text-align: center;
+
+    border: 2px solid var(--Color-Blue, #0eb0f1);
 }
 
 .btn:hover {
@@ -117,4 +151,15 @@ body {
         --Purple-Gradient,
         linear-gradient(287deg, #0eb0f1 0.11%, #6dd5ed 101.7%)
     );
+}
+
+.subtitle-large-form {
+    color: #666;
+
+    /* text-lg/medium */
+    font-family: Poppins;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 28px */
 }
