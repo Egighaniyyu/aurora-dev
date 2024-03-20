@@ -57,9 +57,9 @@
                     @csrf
                     <div class="subtitle-large-form mb-8">Data Diri</div>
                     <div class="mb-8">
-                        <label for="rekam_medis" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Rekam
+                        <label for="no_rm" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">No. Reka
                             Medis</label>
-                        <input type="text" id="rekam_medis"
+                        <input type="text" id="no_rm"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="01-12-53" required />
                     </div>

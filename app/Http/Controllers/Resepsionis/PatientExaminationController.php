@@ -13,7 +13,7 @@ class PatientExaminationController extends Controller
      */
     public function index()
     {
-        return view('resepsionis.patient-examination');
+        return view('resepsionis.patient-examination.index');
     }
 
     /**
@@ -21,7 +21,7 @@ class PatientExaminationController extends Controller
      */
     public function create()
     {
-        //
+        return view('resepsionis.patient-examination.create');
     }
 
     /**

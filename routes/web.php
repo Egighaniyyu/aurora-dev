@@ -18,4 +18,4 @@ use Illuminate\Support\Facades\Route;
 
 Route::resource('/resepsionis', ResepsionisDashboardController::class);
 Route::resource('/data-pasien', ResepsionisPatientDataController::class);
-Route::resource('/pemeriksaan-pasien', ResepsionisPatientExaminationController::class);
+Route::resource('/antrian-pasien', ResepsionisPatientExaminationController::class);

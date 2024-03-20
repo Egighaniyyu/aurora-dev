@@ -31,7 +31,7 @@
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="m1 9 4-4-4-4" />
                             </svg>
-                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Data
+                            <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Antrian
                                 Pasien</span>
                         </div>
                     </li>
@@ -39,7 +39,7 @@
             </nav>
 
             <div class="mt-4 p-8 w-full bg-white rounded-[32px]">
-                <div class="title-card mb-6">Data Pasien</div>
+                <div class="title-card mb-6">Antrian Pasien</div>
 
                 <div class="flex flex-row w-full justify-between mb-11">
                     <form>
@@ -61,7 +61,7 @@
                         </div>
                     </form>
 
-                    <a href="{{ route('data-pasien.create') }}" class="btn btn-small btn-gradient-blue"><i
+                    <a href="{{ route('antrian-pasien.create') }}" class="btn btn-small btn-gradient-blue"><i
                             data-feather="plus" class="w-5 h-5 text-white"></i> Tambah
                         Data</a>
                 </div>
@@ -74,25 +74,25 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                    No. Reka Medis
+                                    No. Registrasi
                                 </th>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                    Jenis Layanan
+                                    Jenis Kunjunagn
+                                </th>
+                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    Tanggal Masuk
+                                </th>
+                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    No. Reka Medis
                                 </th>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     Nama Pasien
                                 </th>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                    Tanggal Lahir
+                                    Poli
                                 </th>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                    Jenis Kelamin
-                                </th>
-                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                    No. Telepon
-                                </th>
-                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                    Alamat
+                                    Suhu Badan
                                 </th>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     Action
@@ -103,25 +103,25 @@
                             <tr
                                 class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    01-00-01
+                                    PU0001
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    Umum
+                                    Rawat Jalan
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    20 Maret 2024
+                                </td>
+                                <td class="px-6 py-4 whitespace-nowrap">
+                                    01-00-01
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     Diagy Ghaniyyu Muqsit
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    02 Juni 2001
+                                    Poli Umum
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    Laki-laki
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    081234567890
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    Komp. Swadharma Lestari, Jl. Cendrawasih Blok F/111
+                                    25.5 C
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <a href="#" class="btn btn-small btn-gradient-blue">Lihat Detail</a>

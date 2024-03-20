@@ -14,14 +14,14 @@
                 <a href="{{ route('data-pasien.index') }}"
                     class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
                     <i data-feather="users" class="menu-icon"></i>
-                    <span class="menu-label">Antrian Pasien</span>
+                    <span class="menu-label">Data Pasien</span>
                 </a>
             </li>
             <li class="menu rounded-lg @if (request()->routeIs('pemeriksaan-pasien.index')) active @endif">
-                <a href="{{ route('pemeriksaan-pasien.index') }}"
+                <a href="{{ route('antrian-pasien.index') }}"
                     class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
                     <i data-feather="clipboard" class="menu-icon"></i>
-                    <span class="menu-label">Pemeriksaan Pasien</span>
+                    <span class="menu-label">Antrian Pasien</span>
                 </a>
             </li>
 
