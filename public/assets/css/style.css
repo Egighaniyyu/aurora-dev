@@ -85,6 +85,17 @@ div::-webkit-scrollbar-thumb {
     );
 }
 
+.bg-login {
+    background-image: url(../img/bg-login.png);
+    background-size: cover;
+    width: 50%;
+}
+
+.container-login {
+    width: 50%;
+    padding: 60px 80px;
+}
+
 /* sidebar */
 .menu .menu-icon {
     color: #8a93a1;
