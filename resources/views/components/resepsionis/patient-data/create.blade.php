@@ -53,15 +53,15 @@
 
             <div class="mt-4 p-8 w-full bg-white rounded-[32px]">
                 <div class="title-card mb-8">Pendaftaran Pasien Baru</div>
-                <form action="#" class="w-full">
+                <form action="{{ route('data-pasien.store') }}" method="POST" class="w-full">
                     @csrf
                     <div class="subtitle-large-form mb-8">Data Diri</div>
                     <div class="mb-8">
-                        <label for="no_rm" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">No. Reka
+                        <label for="noRm" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">No. Reka
                             Medis</label>
-                        <input type="text" id="no_rm"
+                        <input type="text" id="noRm" name="noRm"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{ $newNoRM }}" readonly />
+                            value="{{ $newNoRM }}" readonly required />
                     </div>
                     <div class="mb-8">
                         <label for="no_bpjs" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">No.
@@ -70,47 +70,59 @@
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Masukan No. BPJS" />
                     </div>
-                    <div class="grid gap-6 mb-8 md:grid-cols-2">
+                    <div class="grid gap-6 mb-8 md:grid-cols-3">
                         <div>
                             <label for="nik" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nomor
                                 Induk
                                 Kewarganegaraan (NIK)</label>
-                            <input type="number" id="nik"
+                            <input type="number" id="nik" name="nik"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan NIK" />
+                                placeholder="Masukan NIK" required />
                         </div>
                         <div>
-                            <label for="nama" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama
-                                Lengkap</label>
-                            <input type="text" id="nama"
+                            <label for="namaDepan" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama
+                                Depan</label>
+                            <input type="text" id="namaDepan" name="namaDepan"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Masukan Nama Lengkap" required />
+                        </div>
+                        <div>
+                            <label for="namaBelakang"
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama
+                                Belakang</label>
+                            <input type="text" id="namaBelakang" name="namaBelakang"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Nama Lengkap" />
                         </div>
+                    </div>
+                    <div class="grid gap-6 mb-8 md:grid-cols-2">
                         <div>
-                            <label for="tgl_lahir"
+                            <label for="tanggalLahir"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Tanggal
                                 Lahir</label>
-                            <input type="date" id="tgl_lahir"
+                            <input type="date" id="tanggalLahir" name="tanggalLahir"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan Tanggal Lahir" />
+                                placeholder="Masukan Tanggal Lahir" required />
                         </div>
                         <div>
-                            <label for="jenis_kelamin"
+                            <label for="jenisKelamin"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
                                 Kelamin</label>
-                            <select id="jenis_kelamin"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select id="jenisKelamin" name="jenisKelamin"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
                                 <option disabled selected>Pilih Jenis Kelamin</option>
                                 <option value="Laki-laki">Laki-laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
                         </div>
                         <div>
-                            <label for="status_menikah"
+                            <label for="statusMenikah"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
                                 Menikah</label>
-                            <select id="status_menikah"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select id="statusMenikah" name="statusMenikah"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
                                 <option disabled selected>Pilih Status Menikah</option>
                                 <option value="1">Belum Kawin</option>
                                 <option value="2">Kawin</option>
@@ -119,25 +131,27 @@
                             </select>
                         </div>
                         <div>
-                            <label for="nama_ortu" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama
+                            <label for="namaOrtu"
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama
                                 Orang
                                 Tua</label>
-                            <input type="text" id="nama_ortu"
+                            <input type="text" id="namaOrtu" name="namaOrtu"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan Orang Tua" />
+                                placeholder="Masukan Orang Tua" required />
                         </div>
                         <div>
-                            <label for="no_tlp" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nomor
+                            <label for="noTelepon"
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nomor
                                 Telepon</label>
-                            <input type="number" id="no_tlp"
+                            <input type="number" id="noTelepon" name="noTelepon"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan No. Telepon" />
+                                placeholder="Masukan No. Telepon" required />
                         </div>
                         <div>
                             <label for="agama"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Agama</label>
-                            <select id="agama"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select id="agama" name="agama"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"required>
                                 <option selected disabled>Pilih Agama</option>
                                 <option value="Islam">Islam</option>
                                 <option value="Kristen">Kristen</option>
@@ -147,10 +161,10 @@
                             </select>
                         </div>
                         <div>
-                            <label for="gol_darah"
+                            <label for="golDarah"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Golongan
                                 Darah</label>
-                            <select id="gol_darah"
+                            <select id="golDarah" name="golDarah"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected disabled>Pilih Golongan Darah</option>
                                 <option value="A">A</option>
@@ -163,15 +177,16 @@
                     <hr class=" border-gray-200 dark:border-gray-700 mb-8">
                     <div class="subtitle-large-form mb-8">Alamat</div>
                     <div class="grid gap-6 mb-8 md:grid-cols-2">
-
                         <div>
                             <label for="provinsi"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Provinsi</label>
                             <select id="provinsi" name="provinsi"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
                                 <option selected disabled>Pilih Provinsi</option>
                                 @forelse ($province as $prov)
-                                    <option value="{{ $prov['id'] }}">{{ $prov['name'] }}</option>
+                                    <option id_prov="{{ $prov['id'] }}" value="{{ $prov['name'] }}">{{ $prov['name'] }}
+                                    </option>
                                 @empty
                                     <option value="">Data tidak ditemukan</option>
                                 @endforelse
@@ -181,16 +196,18 @@
                             <label for="kota_kab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Kota /
                                 Kabupaten</label>
-                            <select id="kota_kab" name="kota_kab"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select id="kota_kab" name="kotaKab"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
                                 <option selected disabled>Pilih Kota / Kabupaten</option>
                             </select>
                         </div>
                         <div>
                             <label for="Kecamatan"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Kecamatan</label>
-                            <select id="Kecamatan" name="Kecamatan"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select id="Kecamatan" name="kecamatan"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
                                 <option selected disabled>Pilih Kecamatan</option>
                             </select>
                         </div>
@@ -198,23 +215,24 @@
                             <label for="desa_kel"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Kelurahan /
                                 Desa</label>
-                            <select id="desa_kel" name="desa_kel"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <select id="desa_kel" name="desaKel"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
                                 <option selected disabled>Pilih Kelurahan / Desa</option>
                             </select>
                         </div>
                     </div>
                     <div class="mb-8">
-                        <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
+                        <label for="alamatKTP" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
                             Sesuai
                             KTP</label>
-                        <textarea id="alamat" rows="4" name="alamat"
+                        <textarea id="alamatKTP" rows="4" name="alamatKTP"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Masukan Alamat Sesuai KTP"></textarea>
+                            placeholder="Masukan Alamat Sesuai KTP" required></textarea>
 
                     </div>
                     <div class="flex items-center mb-8">
-                        <input type="hidden" id="checkDomisKtp" name="checkDomisKtp" value="0">
+                        <input type="hidden" id="checkDomisKtp" name="checkDomisKtp" value="0" required>
                         <input type="checkbox" id="domis_ktp"
                             onchange="document.getElementById('checkDomisKtp').value = this.checked ? 1 : 0"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
@@ -222,9 +240,9 @@
                             jika Alamat Domisili sama dengan Alamat KTP</label>
                     </div>
                     <div class="mb-8">
-                        <label for="alamat_domisili"
+                        <label for="alamatDomisili"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Domisili</label>
-                        <textarea id="alamat_domisili" name="alamat_domisili" rows="4"
+                        <textarea id="alamatDomisili" name="alamat_domisili" rows="4"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Masukan Alamat Domisili"></textarea>
 
@@ -235,89 +253,87 @@
                         <div>
                             <label for="makanan"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Makanan</label>
-                            <select id="makanan"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Pilih</option>
-                                <option value="Mie">Mie</option>
-                                <option value="Telur">Telur</option>
-
-                            </select>
+                            <input type="text" id="makanan" name="makanan"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Masukan Alergi Makanan" />
                         </div>
-
                         <div>
                             <label for="udara"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Udara</label>
-                            <select id="udara"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Pilih</option>
-                                <option value="Panas">Panas</option>
-                                <option value="Dingin">Dingin</option>
-                            </select>
+                            <input type="text" id="udara" name="udara"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="Masukan Alergi Udara" />
                         </div>
                         <div>
                             <label for="obat"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Obat</label>
-                            <input type="text" id="obat"
+                            <input type="text" id="obat" name="obat"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Obat" />
+                                placeholder="Masukan Alergi Obat" />
                         </div>
                     </div>
                     <hr class=" border-gray-200 dark:border-gray-700 mb-8">
                     <div class="subtitle-large-form mb-8">Penanggung Jawab</div>
                     <div class="grid gap-6 mb-8 md:grid-cols-2">
                         <div>
-                            <label for="penanggung_jawab"
+                            <label for="hubungaPenanggungJawab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Penanggung
                                 Jawab</label>
-                            <select id="penanggung_jawab"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="Diri Sendiri" selected>Diri Sendiri</option>
+                            <select id="hubungaPenanggungJawab" name="hubungaPenanggungJawab"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
+                                <option selected disabled> Pilih Penanggung Jawab</option>
+                                <option value="Diri Sendiri">Diri Sendiri</option>
                                 <option value="Orang Tua">Orang Tua</option>
-
+                                <option value="Suami/Istri">Suami/Istri</option>
+                                <option value="Anak">Anak</option>
+                                <option value="Keluarga">Keluarga</option>
+                                <option value="Lainnya">Lainnya</option>
                             </select>
                         </div>
                         <div>
-                            <label for="nik_penanggung_jawab"
+                            <label for="nikPenanggungJawab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">NIK Penanggung
                                 Jawab</label>
-                            <input type="text" id="nik_penanggung_jawab"
+                            <input type="text" id="nikPenanggungJawab" name="nikPenanggungJawab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="NIK Penanggung Jawab" />
+                                placeholder="NIK Penanggung Jawab" required />
                         </div>
                         <div>
-                            <label for="nama_penanggung_jawab"
+                            <label for="namaPenanggungJawab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama Penanggung
                                 Jawab</label>
-                            <input type="text" id="nama_penanggung_jawab"
+                            <input type="text" id="namaPenanggungJawab" name="namaPenanggungJawab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Nama Penanggung Jawab" />
+                                placeholder="Nama Penanggung Jawab" required />
                         </div>
                         <div>
-                            <label for="no_penanggung_jawab"
+                            <label for="noPenanggungJawab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">No. Telepon</label>
-                            <input type="text" id="no_penanggung_jawab"
+                            <input type="text" id="noPenanggungJawab" name="noPenanggungJawab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="No. Telepon" />
                         </div>
                         <div>
-                            <label for="alamat_penanggung_jawab"
+                            <label for="alamatPenanggungJawab"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Penanggung
                                 Jawab</label>
-                            <textarea id="alamat_penanggung_jawab" rows="4"
+                            <textarea id="alamatPenanggungJawab" rows="4" name="alamatPenanggungJawab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Alamat Penanggung Jawab"></textarea>
                         </div>
                         <div>
-                            <label for="Pekerjaan_penanggung_jawab"
+                            <label for="pekerjaanPenanggungJawab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Pekerjaan</label>
-                            <input type="text" id="Pekerjaan_penanggung_jawab"
+                            <input type="text" id="pekerjaanPenanggungJawab" name="pekerjaanPenanggungJawab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Pekerjaan" />
                         </div>
                     </div>
 
                     <div class="flex justify-end items-start gap-8 self-stretch">
-                        <button class="btn btn-medium btn-secondary-blue">Batal</button>
+                        <button type="button" class="btn btn-medium btn-secondary-blue"
+                            onclick="window.location.href='{{ route('data-pasien.index') }}'">Batal</button>
                         <button type="submit" class="btn btn-medium btn-gradient-blue">Simpan</button>
                     </div>
                 </form>
@@ -328,95 +344,145 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#domis_ktp').change(function() {
-            if (this.checked) {
-                $('#alamat_domisili').val($('#alamat').val());
-                $('#alamat_domisili').prop('disabled', true);
-            } else {
-                $('#alamat_domisili').prop('disabled', false);
+        var ajaxRequest;
+
+        $("#provinsi").change(function() {
+            if (ajaxRequest) {
+                ajaxRequest.abort();
+                // Set the following dropdown to null
+                $("#kota_kab")
+                    .empty()
+                    .append("<option selected disabled>Pilih Kabupaten</option>");
+                $("#Kecamatan")
+                    .empty()
+                    .append("<option selected disabled>Pilih Kecamatan</option>");
+                $("#desa_kel")
+                    .empty()
+                    .append(
+                        "<option selected disabled>Pilih Kelurahan / Desa</option>"
+                    );
             }
-        });
-    });
-</script>
-<script>
-    $(document).ready(function() {
-        $('#provinsi').change(function() {
-            var provinsiID = $(this).val();
+
+            // get from id_prov
+            var provinsiID = $(this).find(":selected").attr("id_prov");
             if (provinsiID) {
-                $.ajax({
+                ajaxRequest = $.ajax({
                     type: "GET",
-                    url: "{{ route('data-pasien.cities') }}?provinsi_id=" + provinsiID,
+                    url: "{{ route('data-pasien.cities') }}?provinsi_id=" +
+                        provinsiID,
                     success: function(res) {
                         if (res) {
-                            $("#kota_kab").empty();
-                            $("#kota_kab").append(
-                                '<option selected disabled>Pilih Kota / Kabupaten</option>'
-                            );
+                            $("#kota_kab")
+                                .empty()
+                                .append(
+                                    "<option selected disabled>Pilih Kota / Kabupaten</option>"
+                                );
                             $.each(res, function(id, value) {
-                                $("#kota_kab").append('<option value="' + value.id +
-                                    '">' + value.name +
-                                    '</option>');
+                                $("#kota_kab").append(
+                                    '<option id_kota="' +
+                                    value.id +
+                                    '" value="' +
+                                    value.name +
+                                    '">' +
+                                    value.name +
+                                    "</option>"
+                                );
                             });
                         } else {
                             $("#kota_kab").empty();
                         }
-                    }
+                    },
                 });
             } else {
                 $("#kota_kab").empty();
             }
         });
-    });
 
-    $(document).ready(function() {
-        $('#kota_kab').change(function() {
-            var kotaKabID = $(this).val();
+        $("#kota_kab").change(function() {
+            if (ajaxRequest) {
+                ajaxRequest.abort();
+                // Set the following dropdown to null
+                $("#Kecamatan")
+                    .empty()
+                    .append("<option selected disabled>Pilih Kecamatan</option>");
+                $("#desa_kel")
+                    .empty()
+                    .append(
+                        "<option selected disabled>Pilih Kelurahan / Desa</option>"
+                    );
+            }
+
+            var kotaKabID = $(this).find(":selected").attr("id_kota");
             if (kotaKabID) {
-                $.ajax({
+                ajaxRequest = $.ajax({
                     type: "GET",
-                    url: "{{ route('data-pasien.districts') }}?kota_kab_id=" + kotaKabID,
+                    url: "{{ route('data-pasien.districts') }}?kota_kab_id=" +
+                        kotaKabID,
                     success: function(res) {
                         if (res) {
-                            $("#Kecamatan").empty();
-                            $("#Kecamatan").append('<option>Pilih Kecamatan</option>');
+                            $("#Kecamatan")
+                                .empty()
+                                .append(
+                                    "<option selected disabled>Pilih Kecamatan</option>"
+                                );
                             $.each(res, function(key, value) {
-                                $("#Kecamatan").append('<option value="' + value
-                                    .id +
-                                    '">' + value.name +
-                                    '</option>');
+                                $("#Kecamatan").append(
+                                    '<option id_kecamatan="' +
+                                    value.id +
+                                    '" value="' +
+                                    value.name +
+                                    '">' +
+                                    value.name +
+                                    "</option>"
+                                );
                             });
-
                         } else {
                             $("#Kecamatan").empty();
                         }
-                    }
+                    },
                 });
             } else {
                 $("#Kecamatan").empty();
             }
         });
-    });
 
-    $(document).ready(function() {
-        $('#Kecamatan').change(function() {
-            var kecamatanID = $(this).val();
+        $("#Kecamatan").change(function() {
+            if (ajaxRequest) {
+                ajaxRequest.abort();
+                // Set the following dropdown to null
+                $("#desa_kel")
+                    .empty()
+                    .append(
+                        "<option selected disabled>Pilih Kelurahan / Desa</option>"
+                    );
+            }
+
+            var kecamatanID = $(this).find(":selected").attr("id_kecamatan");
             if (kecamatanID) {
-                $.ajax({
+                ajaxRequest = $.ajax({
                     type: "GET",
-                    url: "{{ route('data-pasien.villages') }}?kecamatan_id=" + kecamatanID,
+                    url: "{{ route('data-pasien.villages') }}?kecamatan_id=" +
+                        kecamatanID,
                     success: function(res) {
                         if (res) {
-                            $("#desa_kel").empty();
-                            $("#desa_kel").append(
-                                '<option>Pilih Kelurahan / Desa</option>');
+                            $("#desa_kel")
+                                .empty()
+                                .append(
+                                    "<option selected disabled>Pilih Kelurahan / Desa</option>"
+                                );
                             $.each(res, function(key, value) {
-                                $("#desa_kel").append('<option value="' + value.id +
-                                    '">' + value.name + '</option>');
+                                $("#desa_kel").append(
+                                    '<option value="' +
+                                    value.name +
+                                    '">' +
+                                    value.name +
+                                    "</option>"
+                                );
                             });
                         } else {
                             $("#desa_kel").empty();
                         }
-                    }
+                    },
                 });
             } else {
                 $("#desa_kel").empty();

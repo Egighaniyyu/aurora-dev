@@ -19,21 +19,29 @@ return new class extends Migration
             $table->string('nik')->nullable();
             $table->string('nama_depan');
             $table->string('nama_belakang')->nullable();
+            $table->date('tanggal_lahir');
             $table->string('jenis_kelamin');
-            $table->string('status_hubungan');
+            $table->string('status_menikah');
             $table->string('nama_orangtua');
             $table->string('no_telepon');
-            $table->date('tanggal_lahir');
-            $table->text('alamat')->nullable();
             $table->string('agama');
+            $table->string('gol_darah');
             $table->string('provinsi');
             $table->string('kabupaten');
             $table->string('kecamatan');
             $table->string('kelurahan');
-            $table->integer('rt')->length(2);
-            $table->integer('rw')->length(2);
+            $table->text('alamat_ktp');
+            $table->text('alamat_domisili')->nullable();
+            $table->string('alergi_makanan');
+            $table->string('alergi_udara');
+            $table->string('alergi_obat');
+            $table->string('hubungan_penanggung_jawab');
+            $table->string('nik_penanggung_jawab');
+            $table->string('nama_penanggung_jawab');
+            $table->string('no_telepon_penanggung_jawab');
+            $table->string('alamat_penanggung_jawab');
+            $table->string('pekerjaan_penanggung_jawab');
             $table->datetime('tanggal_pendaftaran');
-            $table->integer('jenis_layanan'); // 1. Umum, 2. BPJS
             $table->string('status'); // 1. aktif, 2. tidak aktif
             $table->string('alasan_tidak_aktif')->nullable(); // 1. meninggal, 2. pindah, 3. lainnya
             $table->timestamps();

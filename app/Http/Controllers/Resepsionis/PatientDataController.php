@@ -64,7 +64,7 @@ class PatientDataController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -211,25 +211,17 @@ class PatientDataController extends Controller
      */
     public function getCities(Request $request)
     {
-        $getCache = Cache::get('cityCache');
-        if ($getCache) {
-            return response()->json($getCache);
-        } 
-        else {
-            $client = new Client();
-            $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/kabupaten', [
-                'query' => [
-                    'api_key' => env('API_KEY_WILAYAH'),
-                    'id_provinsi' => $request->provinsi_id,
-                ]
-            ]);
+        $client = new Client();
+        $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/kabupaten', [
+            'query' => [
+                'api_key' => env('API_KEY_WILAYAH'),
+                'id_provinsi' => $request->provinsi_id,
+            ]
+        ]);
 
-            $data = json_decode($response->getBody()->getContents(), true);
-            $city = $data['value'];
-            $saveCity = Cache::put('cityCache', $city, 60 * 60 * 24);
-            $getCache = Cache::get('cityCache');
-            return response()->json($getCache);
-        }
+        $data = json_decode($response->getBody()->getContents(), true);
+        $city = $data['value'];
+        return response()->json($city);
     }
 
     /**
@@ -237,25 +229,17 @@ class PatientDataController extends Controller
      */
     public function getDistrict(Request $request)
     {
-        $getCache = Cache::get('disctrictCache');
-        if ($getCache) {
-            return response()->json($getCache);
-        } 
-        else {
-            $client = new Client();
-            $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/kecamatan', [
-                'query' => [
-                    'api_key' => env('API_KEY_WILAYAH'),
-                    'id_kabupaten' => $request->kota_kab_id,
-                ]
-            ]);
+        $client = new Client();
+        $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/kecamatan', [
+            'query' => [
+                'api_key' => env('API_KEY_WILAYAH'),
+                'id_kabupaten' => $request->kota_kab_id,
+            ]
+        ]);
 
-            $data = json_decode($response->getBody()->getContents(), true);
-            $district = $data['value'];
-            $saveCity = Cache::put('disctrictCache', $district, 60 * 60 * 24);
-            $getCache = Cache::get('disctrictCache');
-            return response()->json($getCache);
-        }
+        $data = json_decode($response->getBody()->getContents(), true);
+        $district = $data['value'];
+        return response()->json($district);
     }
 
     /**
@@ -263,24 +247,16 @@ class PatientDataController extends Controller
      */
     public function getVillage(Request $request)
     {
-        $getCache = Cache::get('villageCache');
-        if ($getCache) {
-            return response()->json($getCache);
-        } 
-        else {
-            $client = new Client();
-            $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/kelurahan', [
-                'query' => [
-                    'api_key' => env('API_KEY_WILAYAH'),
-                    'id_kecamatan' => $request->kecamatan_id,
-                ]
-            ]);
+        $client = new Client();
+        $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/kelurahan', [
+            'query' => [
+                'api_key' => env('API_KEY_WILAYAH'),
+                'id_kecamatan' => $request->kecamatan_id,
+            ]
+        ]);
 
-            $data = json_decode($response->getBody()->getContents(), true);
-            $village = $data['value'];
-            $saveCity = Cache::put('villageCache', $village, 60 * 60 * 24);
-            $getCache = Cache::get('villageCache');
-            return response()->json($getCache);
-        }
+        $data = json_decode($response->getBody()->getContents(), true);
+        $village = $data['value'];
+        return response()->json($village);
     }
 }

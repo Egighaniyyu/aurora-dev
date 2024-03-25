@@ -71,9 +71,9 @@
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     No. Reka Medis
                                 </th>
-                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                {{-- <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     Jenis Layanan
-                                </th>
+                                </th> --}}
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     Nama Pasien
                                 </th>
@@ -101,9 +101,9 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{ $pasien->no_rm }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                    {{-- <td class="px-6 py-4 whitespace-nowrap">
                                         {{ $pasien->jenis_layanan == 1 ? 'Umum' : 'BPJS' }}
-                                    </td>
+                                    </td> --}}
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{ $pasien->nama_lengkap }}
                                     </td>
@@ -117,7 +117,7 @@
                                         {{ $pasien->no_telepon }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $pasien->alamat }}
+                                        {{ $pasien->alamat_domisili }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <a href="{{ route('data-pasien.show', $pasien->id) }}"

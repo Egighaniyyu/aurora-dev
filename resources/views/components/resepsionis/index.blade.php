@@ -22,7 +22,8 @@
                                 <div class="text-sm font-normal text-white">Klik button di bawah untuk membuat antrian
                                     pasien baru</div>
                             </div>
-                            <a href="#" class="btn btn-medium btn-white">Antrian Pasien</a>
+                            <a href="{{ route('antrian-pasien.index') }}" class="btn btn-medium btn-white">Antrian
+                                Pasien</a>
                         </div>
                     </div>
                 </div>
