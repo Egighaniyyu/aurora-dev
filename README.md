@@ -21,7 +21,7 @@ Aurora adalah solusi yang penting untuk meningkatkan efisiensi, kualitas pelayan
 Clone this repo
 
 ```
-https://github.com/Egighaniyyu/aurora-dev
+git clone git@github.com/Egighaniyyu/aurora-dev.git
 ```
 
 Switch to the repo folder
