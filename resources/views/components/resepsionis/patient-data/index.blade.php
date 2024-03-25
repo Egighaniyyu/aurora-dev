@@ -132,10 +132,48 @@
                         </tbody>
                     </table>
                 </div>
+                {{-- {{ $getData->links('vendor.pagination.tailwind') }} --}}
+                {{-- pagination --}}
+                @if ($getData->hasPages())
+                    <div class="flex justify-between bg-gray-200 p-4 rounded-md space-x-4">
+                        <div class="text-gray-700">
+                            Showing {{ $getData->firstItem() }} to {{ $getData->lastItem() }} of {{ $getData->total() }}
+                        </div>
+                        <!-- Previous Page Link -->
+                        @if (!$getData->onFirstPage())
+                            <a href="{{ $getData->previousPageUrl() }}"
+                                class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 hover:bg-gray-300 rounded-md">
+                                Previous
+                            </a>
+                        @endif
 
+                        <!-- Pagination Elements -->
+                        <div class="flex space-x-2">
+                            @foreach (range(1, $getData->lastPage()) as $i)
+                                @if ($i == $getData->currentPage())
+                                    <span
+                                        class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white bg-blue-500 border border-blue-500 cursor-default leading-5 rounded-md">{{ $i }}</span>
+                                @else
+                                    <a href="{{ $getData->url($i) }}"
+                                        class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 hover:bg-gray-300 rounded-md">
+                                        {{ $i }}
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
 
+                        <!-- Next Page Link -->
+                        @if ($getData->hasMorePages())
+                            <a href="{{ $getData->nextPageUrl() }}"
+                                class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 hover:bg-gray-300 rounded-md">
+                                Next
+                            </a>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
+    </div>
     </div>
 @endsection
 
