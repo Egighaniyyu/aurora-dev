@@ -30,7 +30,7 @@ class PatientDataController extends Controller
         })
         ->where('status', 'aktif')
         ->orderBy('tanggal_pendaftaran', 'desc')
-        ->get();
+        ->paginate(10);
 
         return view('components.resepsionis.patient-data.index', compact('getData'));
     }
