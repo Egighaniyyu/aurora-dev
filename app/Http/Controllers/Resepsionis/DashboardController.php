@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Resepsionis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Resepsionis\Dashboard;
+use App\Models\Resepsionis\RP_Dashboard;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -13,7 +13,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('resepsionis.index');
+        return view('components.resepsionis.index');
     }
 
     /**
@@ -35,7 +35,7 @@ class DashboardController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Dashboard $dashboard)
+    public function show(RP_Dashboard $dashboard)
     {
         //
     }
@@ -43,7 +43,7 @@ class DashboardController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Dashboard $dashboard)
+    public function edit(RP_Dashboard $dashboard)
     {
         //
     }
@@ -51,7 +51,7 @@ class DashboardController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Dashboard $dashboard)
+    public function update(Request $request, RP_Dashboard $dashboard)
     {
         //
     }
@@ -59,7 +59,7 @@ class DashboardController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Dashboard $dashboard)
+    public function destroy(RP_Dashboard $dashboard)
     {
         //
     }

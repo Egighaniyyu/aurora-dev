@@ -22,22 +22,34 @@
                 <div class="text-base leading-[22.4px] text-[#8A93A1]">Kami dengan senang hati menyambut Anda kembali.Silakan
                     masukkan informasi login Anda untuk mengakses akun Anda.</div>
             </div>
-            <div class="mb-8">
-                <label for="username_email" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Username
-                    atau
-                    Email</label>
-                <input type="text" id="username_email"
-                    class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Masukan Username atau Email" required />
-            </div>
-            <div class="mb-8">
-                <label for="password" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Masukan
-                    Password</label>
-                <input type="password" id="password"
-                    class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                    placeholder="Masukan Password" required />
-            </div>
-            <a href="#" class="btn btn-medium btn-gradient-blue">Masuk</a>
+            <form action="{{ route('login') }}" method="POST" id="form-login">
+                @csrf
+                <div class="mb-8">
+                    <label for="username_email"
+                        class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Username
+                        atau
+                        Email</label>
+                    <input name="user" type="text" id="username_email"
+                        class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Masukan Username atau Email" required />
+                </div>
+                <div class="mb-8">
+                    <label for="password" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Masukan
+                        Password</label>
+                    <input name="password" type="password" id="password"
+                        class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        placeholder="Masukan Password" required />
+                </div>
+                <button type="submit" class="btn btn-medium btn-gradient-blue">
+                    Masuk
+                </button>
+                <div class="mt-5">
+                    Belum punya akun?
+                    <a href="{{ route('register') }}"
+                        class="text-base leading-[22.4px] text-[#8A93A1] hover:text-[#3B82F6] dark:text-white"> Daftar
+                        disini</a>
+                </div>
+            </form>
         </div>
 
     </div>

@@ -6,6 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@yield('title')</title>
 
+    {{-- favicon --}}
+    <link rel="icon" href="{{ asset('assets/img/logo.svg') }}" type="image/x-icon">
+
+    {{-- font --}}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -20,6 +24,10 @@
     {{-- my css --}}
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
 
+    {{-- my js --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="{{ asset('assets/js/wilayah.js') }}"></script> --}}
+
     {{-- css script --}}
     @stack('page-css')
     {{-- end css script --}}
@@ -29,11 +37,11 @@
 <body>
 
     {{-- navbar --}}
-    @include('layouts.navbar')
+    @include('partials.navbar')
     {{-- end navbar --}}
 
     {{-- sidebar --}}
-    @include('layouts.sidebar')
+    @include('partials.sidebar')
     {{-- end sidebar --}}
 
     {{-- body --}}

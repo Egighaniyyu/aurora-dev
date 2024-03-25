@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Resepsionis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Resepsionis\PatientExamination;
+use App\Models\Resepsionis\RP_PatientExamination;
 use Illuminate\Http\Request;
 
 class PatientExaminationController extends Controller
@@ -13,7 +13,7 @@ class PatientExaminationController extends Controller
      */
     public function index()
     {
-        return view('resepsionis.patient-examination.index');
+        return view('components.resepsionis.patient-examination.index');
     }
 
     /**
@@ -21,7 +21,7 @@ class PatientExaminationController extends Controller
      */
     public function create()
     {
-        return view('resepsionis.patient-examination.create');
+        return view('components.resepsionis.patient-examination.create');
     }
 
     /**
@@ -35,7 +35,7 @@ class PatientExaminationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(PatientExamination $patientExamination)
+    public function show(RP_PatientExamination $patientExamination)
     {
         //
     }
@@ -43,7 +43,7 @@ class PatientExaminationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(PatientExamination $patientExamination)
+    public function edit(RP_PatientExamination $patientExamination)
     {
         //
     }
@@ -51,7 +51,7 @@ class PatientExaminationController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, PatientExamination $patientExamination)
+    public function update(Request $request, RP_PatientExamination $patientExamination)
     {
         //
     }
@@ -59,7 +59,7 @@ class PatientExaminationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(PatientExamination $patientExamination)
+    public function destroy(RP_PatientExamination $patientExamination)
     {
         //
     }

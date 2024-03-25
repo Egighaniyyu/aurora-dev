@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Resepsionis;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class PatientData extends Model
+class RP_Dashboard extends Model
 {
     use HasFactory;
 }

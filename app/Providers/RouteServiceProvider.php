@@ -24,17 +24,67 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        //
+    }
+
+    /**
+     * Configure the rate limiters for the application.
+     */
+    protected function configureRateLimiting(): void
+    {
         RateLimiter::for('api', function (Request $request) {
-            return Limit::perMinute(60)->by($request->user()?->id ?: $request->ip());
+            return Limit::perMinute(60)->by(optional($request->user())->id ?: $request->ip());
         });
+    }
 
-        $this->routes(function () {
-            Route::middleware('api')
-                ->prefix('api')
-                ->group(base_path('routes/api.php'));
+    /**
+     * Define the routes for the application.
+     */
+    public function map(): void
+    {
+        $this->mapApiRoutes();
+        $this->mapWebRoutes();
+    }
 
-            Route::middleware('web')
-                ->group(base_path('routes/web.php'));
-        });
+    /**
+     * Define the "apu" routes for the application.
+     * These routes are typically stateless.
+     * $return void
+     */
+    protected function mapApiRoutes(): void
+    {
+        // Route::any('/proxy/{url?}', [ProxyController::class, 'example_api'])->where('url', '.*');
+
+        Route::middleware('api')
+            ->prefix('oauth/v1')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
+    }
+
+    /**
+     * Define the "web" routes for the application.
+     * These routes all receive session state, CSRF protection, etc.
+     * $return void
+     */
+    protected function mapWebRoutes(): void
+    {
+        Route::middleware('web')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/web.php'));
+
+        Route::middleware(['web', 'isResepsionis', 'auth'])
+            ->prefix('Resepsionis')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/Resepsionis/ResepsionisRoute.php'));
+
+        Route::middleware(['web'])
+            ->prefix('Poli-Umum')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/Poli/Umum/PoliUmumRoutes.php'));
+
+        Route::middleware(['web'])
+            ->prefix('Poli-Gigi')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/Poli/Gigi/PoliGigiRoutes.php'));
     }
 }

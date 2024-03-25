@@ -61,12 +61,12 @@
                             Medis</label>
                         <input type="text" id="no_rm"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="01-12-53" required />
+                            value="{{ $newNoRM }}" readonly />
                     </div>
                     <div class="mb-8">
                         <label for="no_bpjs" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">No.
                             BPJS</label>
-                        <input type="text" id="no_bpjs"
+                        <input type="number" id="no_bpjs"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Masukan No. BPJS" />
                     </div>
@@ -75,7 +75,7 @@
                             <label for="nik" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nomor
                                 Induk
                                 Kewarganegaraan (NIK)</label>
-                            <input type="text" id="nik"
+                            <input type="number" id="nik"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan NIK" />
                         </div>
@@ -100,7 +100,7 @@
                                 Kelamin</label>
                             <select id="jenis_kelamin"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Pilih Jenis Kelamin</option>
+                                <option disabled selected>Pilih Jenis Kelamin</option>
                                 <option value="Laki-laki">Laki-laki</option>
                                 <option value="Perempuan">Perempuan</option>
                             </select>
@@ -111,9 +111,11 @@
                                 Menikah</label>
                             <select id="status_menikah"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Pilih Status Menikah</option>
-                                <option value="Laki-laki">Laki-laki</option>
-                                <option value="Perempuan">Perempuan</option>
+                                <option disabled selected>Pilih Status Menikah</option>
+                                <option value="1">Belum Kawin</option>
+                                <option value="2">Kawin</option>
+                                <option value="3">Janda</option>
+                                <option value="4">Duda</option>
                             </select>
                         </div>
                         <div>
@@ -127,7 +129,7 @@
                         <div>
                             <label for="no_tlp" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nomor
                                 Telepon</label>
-                            <input type="text" id="no_tlp"
+                            <input type="number" id="no_tlp"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan No. Telepon" />
                         </div>
@@ -136,7 +138,7 @@
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Agama</label>
                             <select id="agama"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Pilih Agama</option>
+                                <option selected disabled>Pilih Agama</option>
                                 <option value="Islam">Islam</option>
                                 <option value="Kristen">Kristen</option>
                                 <option value="Hindu">Hindu</option>
@@ -148,9 +150,14 @@
                             <label for="gol_darah"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Golongan
                                 Darah</label>
-                            <input type="text" id="gol_darah"
-                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan Golongan Darah" />
+                            <select id="gol_darah"
+                                class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected disabled>Pilih Golongan Darah</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="AB">AB</option>
+                                <option value="O">O</option>
+                            </select>
                         </div>
                     </div>
                     <hr class=" border-gray-200 dark:border-gray-700 mb-8">
@@ -160,70 +167,64 @@
                         <div>
                             <label for="provinsi"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Provinsi</label>
-                            <select id="provinsi"
+                            <select id="provinsi" name="provinsi"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Pilih Provinsi</option>
-                                <option value="Aceh">Aceh</option>
-                                <option value="Medan">Medan</option>
-
+                                <option selected disabled>Pilih Provinsi</option>
+                                @forelse ($province as $prov)
+                                    <option value="{{ $prov['id'] }}">{{ $prov['name'] }}</option>
+                                @empty
+                                    <option value="">Data tidak ditemukan</option>
+                                @endforelse
                             </select>
                         </div>
                         <div>
                             <label for="kota_kab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Kota /
                                 Kabupaten</label>
-                            <select id="kota_kab"
+                            <select id="kota_kab" name="kota_kab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Pilih Kota / Kabupaten</option>
-                                <option value="Aceh">Aceh</option>
-                                <option value="Medan">Medan</option>
-
+                                <option selected disabled>Pilih Kota / Kabupaten</option>
                             </select>
                         </div>
                         <div>
                             <label for="Kecamatan"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Kecamatan</label>
-                            <select id="Kecamatan"
+                            <select id="Kecamatan" name="Kecamatan"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Pilih Kecamatan</option>
-                                <option value="Aceh">Aceh</option>
-                                <option value="Medan">Medan</option>
-
+                                <option selected disabled>Pilih Kecamatan</option>
                             </select>
                         </div>
                         <div>
                             <label for="desa_kel"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Makanan</label>
-                            <select id="desa_kel"
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Kelurahan /
+                                Desa</label>
+                            <select id="desa_kel" name="desa_kel"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Pilih Makanan</option>
-                                <option value="Aceh">Aceh</option>
-                                <option value="Medan">Medan</option>
-
+                                <option selected disabled>Pilih Kelurahan / Desa</option>
                             </select>
                         </div>
                     </div>
                     <div class="mb-8">
-
                         <label for="alamat" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
                             Sesuai
                             KTP</label>
-                        <textarea id="alamat" rows="4"
+                        <textarea id="alamat" rows="4" name="alamat"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Masukan Alamat Sesuai KTP"></textarea>
 
                     </div>
                     <div class="flex items-center mb-8">
-                        <input id="default-checkbox" type="checkbox" value=""
+                        <input type="hidden" id="checkDomisKtp" name="checkDomisKtp" value="0">
+                        <input type="checkbox" id="domis_ktp"
+                            onchange="document.getElementById('checkDomisKtp').value = this.checked ? 1 : 0"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="default-checkbox" class="ms-2 font-medium text-gray-900 dark:text-gray-300">Ceklis
                             jika Alamat Domisili sama dengan Alamat KTP</label>
                     </div>
                     <div class="mb-8">
-
                         <label for="alamat_domisili"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Domisili</label>
-                        <textarea id="alamat_domisili" rows="4"
+                        <textarea id="alamat_domisili" name="alamat_domisili" rows="4"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Masukan Alamat Domisili"></textarea>
 
@@ -251,7 +252,6 @@
                                 <option selected>Pilih</option>
                                 <option value="Panas">Panas</option>
                                 <option value="Dingin">Dingin</option>
-
                             </select>
                         </div>
                         <div>
@@ -325,7 +325,106 @@
         </div>
     </div>
 @endsection
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#domis_ktp').change(function() {
+            if (this.checked) {
+                $('#alamat_domisili').val($('#alamat').val());
+                $('#alamat_domisili').prop('disabled', true);
+            } else {
+                $('#alamat_domisili').prop('disabled', false);
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        $('#provinsi').change(function() {
+            var provinsiID = $(this).val();
+            if (provinsiID) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('data-pasien.cities') }}?provinsi_id=" + provinsiID,
+                    success: function(res) {
+                        if (res) {
+                            $("#kota_kab").empty();
+                            $("#kota_kab").append(
+                                '<option selected disabled>Pilih Kota / Kabupaten</option>'
+                            );
+                            $.each(res, function(id, value) {
+                                $("#kota_kab").append('<option value="' + value.id +
+                                    '">' + value.name +
+                                    '</option>');
+                            });
+                        } else {
+                            $("#kota_kab").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#kota_kab").empty();
+            }
+        });
+    });
 
+    $(document).ready(function() {
+        $('#kota_kab').change(function() {
+            var kotaKabID = $(this).val();
+            if (kotaKabID) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('data-pasien.districts') }}?kota_kab_id=" + kotaKabID,
+                    success: function(res) {
+                        if (res) {
+                            $("#Kecamatan").empty();
+                            $("#Kecamatan").append('<option>Pilih Kecamatan</option>');
+                            $.each(res, function(key, value) {
+                                $("#Kecamatan").append('<option value="' + value
+                                    .id +
+                                    '">' + value.name +
+                                    '</option>');
+                            });
+
+                        } else {
+                            $("#Kecamatan").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#Kecamatan").empty();
+            }
+        });
+    });
+
+    $(document).ready(function() {
+        $('#Kecamatan').change(function() {
+            var kecamatanID = $(this).val();
+            if (kecamatanID) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ route('data-pasien.villages') }}?kecamatan_id=" + kecamatanID,
+                    success: function(res) {
+                        if (res) {
+                            $("#desa_kel").empty();
+                            $("#desa_kel").append(
+                                '<option>Pilih Kelurahan / Desa</option>');
+                            $.each(res, function(key, value) {
+                                $("#desa_kel").append('<option value="' + value.id +
+                                    '">' + value.name + '</option>');
+                            });
+                        } else {
+                            $("#desa_kel").empty();
+                        }
+                    }
+                });
+            } else {
+                $("#desa_kel").empty();
+            }
+        });
+    });
+</script>
 @push('page-scripts')
-    {{-- <script src="assets/plugins/datatables/datatables.min.js"></script> --}}
-@endpush
+    @push('page-scripts')
+        {{-- <script src="assets/plugins/datatables/datatables.min.js"></script> --}}
+    @endpush

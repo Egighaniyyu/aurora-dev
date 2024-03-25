@@ -3,23 +3,23 @@
     aria-label="Sidebar">
     <div class="h-full px-3 pb-4 overflow-y-auto bg-white dark:bg-gray-800">
         <ul class="space-y-2">
-            <li class="menu rounded-lg @if (request()->routeIs('resepsionis.index')) active @endif">
+            <li class="menu rounded-lg {{ Route::is('resepsionis.*') ? 'active' : '' }} ">
                 <a href="{{ route('resepsionis.index') }}"
-                    class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
+                    class="flex items-center p-3 gap-3 self-stretch {{ Route::is('resepsionis.*') ? '' : 'hover:bg-gray-100' }} rounded-lg">
                     <i data-feather="grid" class="menu-icon"></i>
                     <span class="menu-label">Dashboard</span>
                 </a>
             </li>
-            <li class="menu rounded-lg @if (request()->routeIs('data-pasien.index')) active @endif">
+            <li class="menu rounded-lg {{ Route::is('data-pasien.*') ? 'active' : '' }} ">
                 <a href="{{ route('data-pasien.index') }}"
-                    class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
+                    class="flex items-center p-3 gap-3 self-stretch {{ Route::is('data-pasien.*') ? '' : 'hover:bg-gray-100' }} rounded-lg">
                     <i data-feather="users" class="menu-icon"></i>
                     <span class="menu-label">Data Pasien</span>
                 </a>
             </li>
-            <li class="menu rounded-lg @if (request()->routeIs('pemeriksaan-pasien.index')) active @endif">
+            <li class="menu rounded-lg {{ Route::is('antrian-pasien.*') ? 'active' : '' }} ">
                 <a href="{{ route('antrian-pasien.index') }}"
-                    class="flex items-center p-3 gap-3 self-stretch hover:bg-gray-100 rounded-lg">
+                    class="flex items-center p-3 gap-3 self-stretch {{ Route::is('antrian-pasien.*') ? '' : 'hover:bg-gray-100' }} rounded-lg">
                     <i data-feather="clipboard" class="menu-icon"></i>
                     <span class="menu-label">Antrian Pasien</span>
                 </a>
