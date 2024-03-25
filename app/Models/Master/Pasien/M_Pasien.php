@@ -26,21 +26,29 @@ class M_Pasien extends Model
         'nik',
         'nama_depan',
         'nama_belakang',
+        'tanggal_lahir',
         'jenis_kelamin',
-        'status_hubungan',
+        'status_menikah',
         'nama_orangtua',
         'no_telepon',
-        'tanggal_lahir',
-        'alamat',
         'agama',
+        'gol_darah',
         'provinsi',
         'kabupaten',
         'kecamatan',
         'kelurahan',
-        'rt',
-        'rw',
+        'alamat_ktp',
+        'alamat_domisili',
+        'alergi_makanan',
+        'alergi_udara',
+        'alergi_obat',
+        'hubungan_penanggung_jawab',
+        'nik_penanggung_jawab',
+        'nama_penanggung_jawab',
+        'no_telepon_penanggung_jawab',
+        'alamat_penanggung_jawab',
+        'pekerjaan_penanggung_jawab',
         'tanggal_pendaftaran',
-        'jenis_pendaftaran',
         'status',
         'alasan_tidak_aktif',
     ];
@@ -82,4 +90,9 @@ class M_Pasien extends Model
     {
         return date('d-M-Y', strtotime($value));
     }
+
+    // public function getAlamatLengkapAttribute($value)
+    // {
+    //     return $this->alamat_ktp . ' ' . $this->kelurahan . ' ' . $this->kecamatan . ' ' . $this->kabupaten . ' ' . $this->provinsi;
+    // }
 }
