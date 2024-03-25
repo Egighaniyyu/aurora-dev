@@ -18,6 +18,42 @@ Aurora adalah solusi yang penting untuk meningkatkan efisiensi, kualitas pelayan
 
 ## Dev Guide
 
+Clone this repo
+
+```
+https://github.com/Egighaniyyu/aurora-dev
+```
+
+Switch to the repo folder
+
+```
+cd laravel-realworld-example-app
+```
+
+Install all the dependencies using composer
+
+```
+composer install
+```
+
+Copy the example env file and make the required configuration changes in the .env file
+
+```
+cp .env.example .env
+```
+
+Generate a new application key
+
+```
+php artisan key:generate
+```
+
+Run the database migrations and seeder
+
+```
+php artisan migrate --seed
+```
+
 Start your build process :
 
 ```
@@ -27,5 +63,5 @@ npm run dev
 Start the development server using the following command:
 
 ```
-php artisan ser
+php artisan serve
 ```
