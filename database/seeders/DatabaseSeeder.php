@@ -14,6 +14,7 @@ use Database\Seeders\Account\RoleSeeder;
 use Database\Seeders\Account\UserSeeder;
 use Database\Seeders\Inventori\I_ObatSeeder;
 use Database\Seeders\Master\M_ICD10Seeder;
+use Database\Seeders\Master\M_WilayahSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -24,6 +25,7 @@ class DatabaseSeeder extends Seeder
     {
         // Call the Seeder class
         $this->call([
+            M_WilayahSeeder::class,
             RoleSeeder::class,
             UserSeeder::class,
             I_ObatSeeder::class,

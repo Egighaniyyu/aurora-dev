@@ -23,10 +23,12 @@
 
     {{-- my css --}}
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
     {{-- my js --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{-- <script src="{{ asset('assets/js/wilayah.js') }}"></script> --}}
+    {{-- <script src="../../../assets/js/wilayah.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
 
     {{-- css script --}}
     @stack('page-css')

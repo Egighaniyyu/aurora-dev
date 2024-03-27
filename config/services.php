@@ -30,18 +30,4 @@ return [
         'secret' => env('AWS_SECRET_ACCESS_KEY'),
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
-
-    'base_api_wilayah' => [
-        'base_uri' => 'https://api.binderbyte.com/',
-        'timeout' => 10.0,
-        'headers' => [
-            // 'Accept' => 'application/json',
-            'Content-Type' => 'application/json',
-        ],
-        'query' => [
-            'api_key' => env('API_KEY_WILAYAH'),
-        ],
-        'verify' => false,
-        'http_errors' => true,
-    ],
 ];

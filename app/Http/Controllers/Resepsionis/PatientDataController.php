@@ -11,6 +11,10 @@ use Illuminate\Support\Facades\Cache;
 # Call the Model
 use App\Models\Resepsionis\RP_PatientData;
 use App\Models\Master\Pasien\M_Pasien;
+use App\Models\Master\Wilayah\M_Provinsi;
+use App\Models\Master\Wilayah\M_Kabupaten;
+use App\Models\Master\Wilayah\M_Kecamatan;
+use App\Models\Master\Wilayah\M_Kelurahan;
 
 class PatientDataController extends Controller
 {
@@ -40,23 +44,10 @@ class PatientDataController extends Controller
      */
     public function create()
     {
-        $getCache = Cache::get('provinceCache');
-        if ($getCache) {
-            $province = $getCache;
-        }
-        else {
-            $client = new Client();
-            $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/provinsi', [
-                'query' => [ 'api_key' => env('API_KEY_WILAYAH') ]
-            ]);
-            $data = json_decode($response->getBody()->getContents(), true);
-            
-            $province = $data['value'];
-            $saveCity = Cache::put('provinceCache', $province, 60 * 60 * 24);
-            $province = Cache::get('provinceCache');
-        }
+        $getProvince = M_Provinsi::all();
+
         $newNoRM = self::getLastNoRM();
-        return view('components.resepsionis.patient-data.create', compact('newNoRM', 'province'));
+        return view('components.resepsionis.patient-data.create', compact('newNoRM', 'getProvince'));
     }
 
     /**
@@ -64,7 +55,12 @@ class PatientDataController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        $getProvince = M_Provinsi::find($request->provinsi)->name;
+        $getCity = M_Kabupaten::find($request->kotaKab)->name;
+        $getDistrict = M_Kecamatan::find($request->kecamatan)->name;
+        $getVillage = M_Kelurahan::find($request->desaKel)->name;
+
+        dd($getProvince, $getCity, $getDistrict, $getVillage);
     }
 
     /**
@@ -211,16 +207,8 @@ class PatientDataController extends Controller
      */
     public function getCities(Request $request)
     {
-        $client = new Client();
-        $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/kabupaten', [
-            'query' => [
-                'api_key' => env('API_KEY_WILAYAH'),
-                'id_provinsi' => $request->provinsi_id,
-            ]
-        ]);
+        $city = M_Kabupaten::where('provinsi_id', $request->provinsi_id)->get();
 
-        $data = json_decode($response->getBody()->getContents(), true);
-        $city = $data['value'];
         return response()->json($city);
     }
 
@@ -229,16 +217,8 @@ class PatientDataController extends Controller
      */
     public function getDistrict(Request $request)
     {
-        $client = new Client();
-        $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/kecamatan', [
-            'query' => [
-                'api_key' => env('API_KEY_WILAYAH'),
-                'id_kabupaten' => $request->kota_kab_id,
-            ]
-        ]);
+        $district = M_Kecamatan::where('kabupaten_id', $request->kota_kab_id)->get();
 
-        $data = json_decode($response->getBody()->getContents(), true);
-        $district = $data['value'];
         return response()->json($district);
     }
 
@@ -247,16 +227,8 @@ class PatientDataController extends Controller
      */
     public function getVillage(Request $request)
     {
-        $client = new Client();
-        $response = $client->request('GET', 'https://api.binderbyte.com/wilayah/kelurahan', [
-            'query' => [
-                'api_key' => env('API_KEY_WILAYAH'),
-                'id_kecamatan' => $request->kecamatan_id,
-            ]
-        ]);
+        $village = M_Kelurahan::where('kecamatan_id', $request->kecamatan_id)->get();
 
-        $data = json_decode($response->getBody()->getContents(), true);
-        $village = $data['value'];
         return response()->json($village);
     }
 }
