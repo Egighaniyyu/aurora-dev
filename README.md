@@ -27,7 +27,7 @@ git clone git@github.com/Egighaniyyu/aurora-dev.git
 Switch to the repo folder
 
 ```
-cd laravel-realworld-example-app
+cd aurora-dev
 ```
 
 Install all the dependencies using composer
