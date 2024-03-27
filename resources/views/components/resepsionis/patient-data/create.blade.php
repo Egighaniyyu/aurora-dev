@@ -187,8 +187,8 @@
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
                                 <option selected disabled>Pilih Provinsi</option>
-                                @forelse ($province as $prov)
-                                    <option id_prov="{{ $prov['id'] }}" value="{{ $prov['name'] }}">{{ $prov['name'] }}
+                                @forelse ($getProvince as $prov)
+                                    <option value="{{ $prov->id }}">{{ $prov->name }}
                                     </option>
                                 @empty
                                     <option value="">Data tidak ditemukan</option>
@@ -351,6 +351,21 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function() {
+        $("#domis_ktp").change(function() {
+            if (this.checked) {
+                // Copy value from alamat ktp to alamat domisili
+                $("#alamatDomisili").val($("#alamatKTP").val());
+                $("#alamatDomisili").prop("disabled", true);
+            } else {
+                $("#alamatDomisili").prop("disabled", false);
+            }
+        });
+    });
+</script>
+<script>
+    $(document).ready(function() {
+        // Initialize Select2 on your select elements
+        // $("#provinsi, #kota_kab, #Kecamatan, #desa_kel").select2();
         var ajaxRequest;
 
         $("#provinsi").change(function() {
@@ -371,7 +386,7 @@
             }
 
             // get from id_prov
-            var provinsiID = $(this).find(":selected").attr("id_prov");
+            var provinsiID = $(this).val();
             if (provinsiID) {
                 ajaxRequest = $.ajax({
                     type: "GET",
@@ -386,10 +401,8 @@
                                 );
                             $.each(res, function(id, value) {
                                 $("#kota_kab").append(
-                                    '<option id_kota="' +
+                                    '<option value="' +
                                     value.id +
-                                    '" value="' +
-                                    value.name +
                                     '">' +
                                     value.name +
                                     "</option>"
@@ -419,7 +432,7 @@
                     );
             }
 
-            var kotaKabID = $(this).find(":selected").attr("id_kota");
+            var kotaKabID = $(this).val();
             if (kotaKabID) {
                 ajaxRequest = $.ajax({
                     type: "GET",
@@ -434,10 +447,8 @@
                                 );
                             $.each(res, function(key, value) {
                                 $("#Kecamatan").append(
-                                    '<option id_kecamatan="' +
+                                    '<option value="' +
                                     value.id +
-                                    '" value="' +
-                                    value.name +
                                     '">' +
                                     value.name +
                                     "</option>"
@@ -464,7 +475,7 @@
                     );
             }
 
-            var kecamatanID = $(this).find(":selected").attr("id_kecamatan");
+            var kecamatanID = $(this).val();
             if (kecamatanID) {
                 ajaxRequest = $.ajax({
                     type: "GET",
@@ -480,7 +491,7 @@
                             $.each(res, function(key, value) {
                                 $("#desa_kel").append(
                                     '<option value="' +
-                                    value.name +
+                                    value.id +
                                     '">' +
                                     value.name +
                                     "</option>"
