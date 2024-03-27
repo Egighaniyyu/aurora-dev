@@ -57,7 +57,8 @@
                     @csrf
                     <div class="subtitle-large-form mb-8">Data Diri</div>
                     <div class="mb-8">
-                        <label for="noRm" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">No. Reka
+                        <label for="noRm"
+                            class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">No. Reka
                             Medis</label>
                         <input type="text" id="noRm" name="noRm"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -72,7 +73,8 @@
                     </div>
                     <div class="grid gap-6 mb-8 md:grid-cols-3">
                         <div>
-                            <label for="nik" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nomor
+                            <label for="nik"
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Nomor
                                 Induk
                                 Kewarganegaraan (NIK)</label>
                             <input type="number" id="nik" name="nik"
@@ -80,7 +82,8 @@
                                 placeholder="Masukan NIK" required />
                         </div>
                         <div>
-                            <label for="namaDepan" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama
+                            <label for="namaDepan"
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Nama
                                 Depan</label>
                             <input type="text" id="namaDepan" name="namaDepan"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -98,7 +101,7 @@
                     <div class="grid gap-6 mb-8 md:grid-cols-2">
                         <div>
                             <label for="tanggalLahir"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Tanggal
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Tanggal
                                 Lahir</label>
                             <input type="date" id="tanggalLahir" name="tanggalLahir"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -106,7 +109,7 @@
                         </div>
                         <div>
                             <label for="jenisKelamin"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Jenis
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required-field">Jenis
                                 Kelamin</label>
                             <select id="jenisKelamin" name="jenisKelamin"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -118,7 +121,7 @@
                         </div>
                         <div>
                             <label for="statusMenikah"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Status
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required-field">Status
                                 Menikah</label>
                             <select id="statusMenikah" name="statusMenikah"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -132,7 +135,7 @@
                         </div>
                         <div>
                             <label for="namaOrtu"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Nama
                                 Orang
                                 Tua</label>
                             <input type="text" id="namaOrtu" name="namaOrtu"
@@ -141,7 +144,7 @@
                         </div>
                         <div>
                             <label for="noTelepon"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nomor
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Nomor
                                 Telepon</label>
                             <input type="number" id="noTelepon" name="noTelepon"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -149,7 +152,7 @@
                         </div>
                         <div>
                             <label for="agama"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Agama</label>
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Agama</label>
                             <select id="agama" name="agama"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"required>
                                 <option selected disabled>Pilih Agama</option>
@@ -179,7 +182,7 @@
                     <div class="grid gap-6 mb-8 md:grid-cols-2">
                         <div>
                             <label for="provinsi"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Provinsi</label>
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Provinsi</label>
                             <select id="provinsi" name="provinsi"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
@@ -194,7 +197,7 @@
                         </div>
                         <div>
                             <label for="kota_kab"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Kota /
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Kota /
                                 Kabupaten</label>
                             <select id="kota_kab" name="kotaKab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -204,7 +207,7 @@
                         </div>
                         <div>
                             <label for="Kecamatan"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Kecamatan</label>
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Kecamatan</label>
                             <select id="Kecamatan" name="kecamatan"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
@@ -213,7 +216,8 @@
                         </div>
                         <div>
                             <label for="desa_kel"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Kelurahan /
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Kelurahan
+                                /
                                 Desa</label>
                             <select id="desa_kel" name="desaKel"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -223,7 +227,8 @@
                         </div>
                     </div>
                     <div class="mb-8">
-                        <label for="alamatKTP" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat
+                        <label for="alamatKTP"
+                            class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required-field">Alamat
                             Sesuai
                             KTP</label>
                         <textarea id="alamatKTP" rows="4" name="alamatKTP"
@@ -277,7 +282,7 @@
                     <div class="grid gap-6 mb-8 md:grid-cols-2">
                         <div>
                             <label for="hubungaPenanggungJawab"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Penanggung
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Penanggung
                                 Jawab</label>
                             <select id="hubungaPenanggungJawab" name="hubungaPenanggungJawab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -293,7 +298,8 @@
                         </div>
                         <div>
                             <label for="nikPenanggungJawab"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">NIK Penanggung
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">NIK
+                                Penanggung
                                 Jawab</label>
                             <input type="text" id="nikPenanggungJawab" name="nikPenanggungJawab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -301,7 +307,8 @@
                         </div>
                         <div>
                             <label for="namaPenanggungJawab"
-                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama Penanggung
+                                class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Nama
+                                Penanggung
                                 Jawab</label>
                             <input type="text" id="namaPenanggungJawab" name="namaPenanggungJawab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
