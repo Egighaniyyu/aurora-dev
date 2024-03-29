@@ -125,7 +125,7 @@ div::-webkit-scrollbar-thumb {
 
 .menu.active:hover .menu-icon,
 .menu.active:hover .menu-label {
-    color: #212121; /* Keep #fff color when active and hovered */
+    color: #fff; /* Keep #fff color when active and hovered */
 }
 
 .menu.active,
@@ -134,6 +134,11 @@ div::-webkit-scrollbar-thumb {
         --Purple-Gradient,
         linear-gradient(287deg, #0eb0f1 0.11%, #6dd5ed 101.7%)
     );
+}
+
+.menu.active:hover,
+.submenu-label.active:hover {
+    background: linear-gradient(287deg, #0083a3 0.11%, #39a7c8 101.7%);
 }
 /* end sidebar */
 
@@ -201,4 +206,77 @@ div::-webkit-scrollbar-thumb {
     content: " *";
     font-size: 18px;
     color: red;
+}
+
+textarea:disabled {
+    background-color: #ccc;
+    color: #666;
+}
+
+/* input type text readonly */
+input[type="text"][readonly] {
+    background-color: #ccc;
+    color: #666;
+}
+
+/* button submit */
+.btn-submit {
+    display: flex;
+    padding: 14px 24px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    gap: 8px;
+
+    /* text-base/medium */
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+
+    color: #fff;
+    text-align: center;
+
+    background: var(
+        --Purple-Gradient,
+        linear-gradient(287deg, #0eb0f1 0.11%, #6dd5ed 101.7%)
+    );
+}
+
+.btn-submit:hover,
+.btn-gradient-blue:hover {
+    background: linear-gradient(287deg, #0083a3 0.11%, #39a7c8 101.7%);
+}
+
+.btn-submit:disabled {
+    background: linear-gradient(287deg, #d3d3d3 0.11%, #e6e6e6 101.7%);
+}
+
+/* button close */
+.btn-close {
+    display: flex;
+    padding: 14px 24px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    gap: 8px;
+
+    /* text-base/medium */
+    font-family: Poppins;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 140%; /* 22.4px */
+
+    color: #039be5;
+    text-align: center;
+
+    background: #fff;
+    box-shadow: 0px 6px 32px 0px rgba(6, 155, 109, 0.2);
+}
+
+.btn-close:hover {
+    background-color: #039be5;
+    color: #e6e6e6;
 }

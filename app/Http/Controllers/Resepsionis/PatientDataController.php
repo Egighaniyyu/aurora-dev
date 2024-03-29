@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Resepsionis;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-// use Symfony\Component\HttpFoundation\Response;
-use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Validator;
+use GuzzleHttp\Client;
+use Illuminate\Support\Facades\Event;
+use Illuminate\Support\Facades\Auth;
 
 # Call the Model
 use App\Models\Resepsionis\RP_PatientData;
@@ -44,10 +46,8 @@ class PatientDataController extends Controller
      */
     public function create()
     {
-        $getProvince = M_Provinsi::all();
-
         $newNoRM = self::getLastNoRM();
-        return view('components.resepsionis.patient-data.create', compact('newNoRM', 'getProvince'));
+        return view('components.resepsionis.patient-data.create', compact('newNoRM'));
     }
 
     /**
@@ -55,12 +55,123 @@ class PatientDataController extends Controller
      */
     public function store(Request $request)
     {
-        $getProvince = M_Provinsi::find($request->provinsi)->name;
-        $getCity = M_Kabupaten::find($request->kotaKab)->name;
-        $getDistrict = M_Kecamatan::find($request->kecamatan)->name;
-        $getVillage = M_Kelurahan::find($request->desaKel)->name;
+        $validate = Validator::make($request->all(), [
+            'noRm' => 'required|string|unique:m__pasiens,no_rm',
+            'noBpjs' => 'numeric|digits:13|unique:m__pasiens,no_bpjs',
+            'nik' => 'required|numeric|digits:16|unique:m__pasiens,nik',
+            'namaDepan' => 'required|string',
+            'namaBelakang' => 'string',
+            'tanggalLahir' => 'required|date',
+            'statusMenikah' => 'required|string',
+            'jenisKelamin' => 'required|in:Laki-Laki,Perempuan',
+            'namaOrtu' => 'required|string',
+            'noTelepon' => 'required|numeric|digits_between:10,13',
+            'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Budha,Konghucu',
+            'golDarah' => 'in:A,B,AB,O',
+            'provinsi' => 'required|exists:m__provinsis,id|numeric',
+            'kotaKab' => 'required|exists:m__kabupatens,id|numeric',
+            'kecamatan' => 'required|exists:m__kecamatans,id|numeric',
+            'desaKel' => 'required|exists:m__kelurahans,id|numeric',
+            'alamatKTP' => 'required|string',
+            'checkDomisKtp' => 'required|between:0,1',
+            'makanan' => 'string',
+            'udara' => 'string',
+            'obat' => 'string',
+            'hubungaPenanggungJawab' => 'required|string',
+            'nikPenanggungJawab' => 'required|numeric|digits:16',
+            'namaPenanggungJawab' => 'required|string',
+            'noPenanggungJawab' => 'numeric|digits_between:10,13',
+            'alamatPenanggungJawab' => 'string',
+            'pekerjaanPenanggungJawab' => 'string',
+        ], [
+            'required' => ':attribute tidak boleh kosong',
+            'exists' => ':attribute tidak ditemukan',
+            'numeric' => ':attribute harus berupa angka',
+            'string' => ':attribute harus berupa huruf',
+            'date' => ':attribute harus berupa tanggal',
+            'in' => ':attribute tidak sesuai',
+            'between' => ':attribute tidak sesuai',
+            'unique' => ':attribute sudah terdaftar',
+            'digits' => ':attribute harus :digits digit',
+            'digits_between' => ':attribute harus antara :min dan :max digit',
+        ], [
+            'noRm' => 'No RM',
+            'npBpjs' => 'No BPJS',
+            'nik' => 'NIK',
+            'namaDepan' => 'Nama Depan',
+            'namaBelakang' => 'Nama Belakang',
+            'tanggalLahir' => 'Tanggal Lahir',
+            'statusMenikah' => 'Status Menikah',
+            'jenisKelamin' => 'Jenis Kelamin',
+            'namaOrtu' => 'Nama Orang Tua',
+            'noTelepon' => 'No Telepon',
+            'agama' => 'Agama',
+            'golDarah' => 'Golongan Darah',
+            'provinsi' => 'Provinsi',
+            'kotaKab' => 'Kota/Kabupaten',
+            'kecamatan' => 'Kecamatan',
+            'desaKel' => 'Desa/Kelurahan',
+            'alamatKTP' => 'Alamat KTP',
+            'checkDomisktp' => 'Domisili Sama dengan KTP',
+            'makanan' => 'Makanan',
+            'udara' => 'Udara',
+            'obat' => 'Obat',
+            'hubungaPenanggungJawab' => 'Hubungan Penanggung Jawab',
+            'nikPenanggungJawab' => 'NIK Penanggung Jawab',
+            'namaPenanggungJawab' => 'Nama Penanggung Jawab',
+            'noPenanggungJawab' => 'No Telepon Penanggung Jawab',
+            'alamatPenanggungJawab' => 'Alamat Penanggung Jawab',
+            'pekerjaanPenanggungJawab' => 'Pekerjaan Penanggung Jawab',
+        ]);
 
-        dd($getProvince, $getCity, $getDistrict, $getVillage);
+        if ($validate->fails()) {
+            toastr()->error($validate->errors()->first(), 'Failed');
+            \Log::error('Error Store Data Pasien: '.$validate->errors()->first());
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+        try {
+            $store = M_Pasien::create([
+                'uuid' => (string) \Str::uuid(),
+                'no_rm' => $request->noRm,
+                'no_bpjs' => $request->noBpjs,
+                'nik' => $request->nik,
+                'nama_depan' => $request->namaDepan,
+                'nama_belakang' => $request->namaBelakang,
+                'tanggal_lahir' => $request->tanggalLahir,
+                'jenis_kelamin' => $request->jenisKelamin,
+                'status_menikah' => $request->statusMenikah,
+                'nama_orangtua' => $request->namaOrtu,
+                'no_telepon' => $request->noTelepon,
+                'agama' => $request->agama,
+                'gol_darah' => $request->golDarah,
+                'provinsi' => $request->provinsi,
+                'kabupaten' => $request->kotaKab,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->desaKel,
+                'alamat_ktp' => $request->alamatKTP,
+                'alamat_domisili' => $request->alamatDomisili == null ? $request->alamatKTP : $request->alamatDomisili,
+                'alergi_makanan' => $request->makanan,
+                'alergi_udara' => $request->udara,
+                'alergi_obat' => $request->obat,
+                'hubungan_penanggung_jawab' => $request->hubungaPenanggungJawab,
+                'nik_penanggung_jawab' => $request->nikPenanggungJawab,
+                'nama_penanggung_jawab' => $request->namaPenanggungJawab,
+                'no_telepon_penanggung_jawab' => $request->noPenanggungJawab,
+                'alamat_penanggung_jawab' => $request->alamatPenanggungJawab,
+                'pekerjaan_penanggung_jawab' => $request->pekerjaanPenanggungJawab,
+                'tanggal_pendaftaran' => now(),
+                'status' => 'aktif',
+            ]);
+
+            toastr()->success('Data Pasien Berhasil Ditambahkan', 'Success');
+            \Log::info('Success Store Data Pasien: '.$store);
+            return redirect()->route('data-pasien.index')->with('success create', 'Data Pasien Berhasil Ditambahkan');
+        } catch (\Exception $e) {
+            toastr()->error('Data Pasien Gagal Ditambahkan', 'Failed');
+            \Log::error('Error Store Data Pasien: '.$e->getMessage());
+            return redirect()->back()->withInput();
+        }
     }
 
     /**
@@ -74,17 +185,133 @@ class PatientDataController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(RP_PatientData $patientData)
+    public function edit(RP_PatientData $patientData, string $id)
     {
-        //
+        $getData = M_Pasien::find($id);
+        return view('components.resepsionis.patient-data.edit', compact('getData'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, RP_PatientData $patientData)
+    public function update(Request $request, RP_PatientData $patientData, string $id)
     {
-        //
+        // dd($request->all());
+        $validate = Validator::make($request->all(), [
+            'noRm' => 'required|string|exists:m__pasiens,no_rm',
+            'noBpjs' => 'numeric|digits:13',
+            'nik' => 'required|numeric|digits:16',
+            'namaDepan' => 'required|string',
+            'namaBelakang' => 'string',
+            'tanggalLahir' => 'required|date',
+            'statusMenikah' => 'required|string',
+            'jenisKelamin' => 'required|in:Laki-laki,Perempuan',
+            'namaOrtu' => 'required|string',
+            'noTelepon' => 'required|numeric|digits_between:10,13',
+            'agama' => 'required|in:Islam,Kristen,Katolik,Hindu,Budha,Konghucu',
+            'golDarah' => 'in:A,B,AB,O',
+            'provinsi' => 'required|exists:m__provinsis,id|numeric',
+            'kotaKab' => 'required|exists:m__kabupatens,id|numeric',
+            'kecamatan' => 'required|exists:m__kecamatans,id|numeric',
+            'desaKel' => 'required|exists:m__kelurahans,id|numeric',
+            'alamatKTP' => 'required|string',
+            'checkDomisKtp' => 'required|between:0,1',
+            'makanan' => 'string',
+            'udara' => 'string',
+            'obat' => 'string',
+            'hubungaPenanggungJawab' => 'required|string',
+            'nikPenanggungJawab' => 'required|numeric|digits:16',
+            'namaPenanggungJawab' => 'required|string',
+            'noPenanggungJawab' => 'numeric|digits_between:10,13',
+            'alamatPenanggungJawab' => 'string',
+            'pekerjaanPenanggungJawab' => 'string',
+        ], [
+            'required' => ':attribute tidak boleh kosong',
+            'exists' => ':attribute tidak ditemukan',
+            'numeric' => ':attribute harus berupa angka',
+            'string' => ':attribute harus berupa huruf',
+            'date' => ':attribute harus berupa tanggal',
+            'in' => ':attribute tidak sesuai',
+            'between' => ':attribute tidak sesuai',
+            'unique' => ':attribute sudah terdaftar',
+            'digits' => ':attribute harus :digits digit',
+            'digits_between' => ':attribute harus antara :min dan :max digit',
+        ], [
+            'noRm' => 'No RM',
+            'npBpjs' => 'No BPJS',
+            'nik' => 'NIK',
+            'namaDepan' => 'Nama Depan',
+            'namaBelakang' => 'Nama Belakang',
+            'tanggalLahir' => 'Tanggal Lahir',
+            'statusMenikah' => 'Status Menikah',
+            'jenisKelamin' => 'Jenis Kelamin',
+            'namaOrtu' => 'Nama Orang Tua',
+            'noTelepon' => 'No Telepon',
+            'agama' => 'Agama',
+            'golDarah' => 'Golongan Darah',
+            'provinsi' => 'Provinsi',
+            'kotaKab' => 'Kota/Kabupaten',
+            'kecamatan' => 'Kecamatan',
+            'desaKel' => 'Desa/Kelurahan',
+            'alamatKTP' => 'Alamat KTP',
+            'checkDomisktp' => 'Domisili Sama dengan KTP',
+            'makanan' => 'Makanan',
+            'udara' => 'Udara',
+            'obat' => 'Obat',
+            'hubungaPenanggungJawab' => 'Hubungan Penanggung Jawab',
+            'nikPenanggungJawab' => 'NIK Penanggung Jawab',
+            'namaPenanggungJawab' => 'Nama Penanggung Jawab',
+            'noPenanggungJawab' => 'No Telepon Penanggung Jawab',
+            'alamatPenanggungJawab' => 'Alamat Penanggung Jawab',
+            'pekerjaanPenanggungJawab' => 'Pekerjaan Penanggung Jawab',
+        ]);
+
+        if ($validate->fails()) {
+            toastr()->error($validate->errors()->first(), 'Failed');
+            \Log::error('Error Update Data Pasien: '.$validate->errors()->first());
+            return redirect()->back()->withErrors($validate)->withInput();
+        }
+
+        try {   
+            $patientData = M_Pasien::find($id);
+            $patientData->update([
+                'no_bpjs' => $request->noBpjs,
+                'nik' => $request->nik,
+                'nama_depan' => $request->namaDepan,
+                'nama_belakang' => $request->namaBelakang,
+                'tanggal_lahir' => $request->tanggalLahir,
+                'jenis_kelamin' => $request->jenisKelamin,
+                'status_menikah' => $request->statusMenikah,
+                'nama_orangtua' => $request->namaOrtu,
+                'no_telepon' => $request->noTelepon,
+                'agama' => $request->agama,
+                'gol_darah' => $request->golDarah,
+                'provinsi' => $request->provinsi,
+                'kabupaten' => $request->kotaKab,
+                'kecamatan' => $request->kecamatan,
+                'kelurahan' => $request->desaKel,
+                'alamat_ktp' => $request->alamatKTP,
+                'alamat_domisili' => $request->alamatDomisili == null ? $request->alamatKTP : $request->alamatDomisili,
+                'alergi_makanan' => $request->makanan,
+                'alergi_udara' => $request->udara,
+                'alergi_obat' => $request->obat,
+                'hubungan_penanggung_jawab' => $request->hubungaPenanggungJawab,
+                'nik_penanggung_jawab' => $request->nikPenanggungJawab,
+                'nama_penanggung_jawab' => $request->namaPenanggungJawab,
+                'no_telepon_penanggung_jawab' => $request->noPenanggungJawab,
+                'alamat_penanggung_jawab' => $request->alamatPenanggungJawab,
+                'pekerjaan_penanggung_jawab' => $request->pekerjaanPenanggungJawab,
+            ]);
+
+            toastr()->success('Data Pasien Berhasil Diubah', 'Success');
+            \Log::info('Success Update Data Pasien: '. 'userID '. ': ' .Auth::user()->id.' - '.$patientData);
+            return redirect()->route('data-pasien.index')->with('success update', 'Data Pasien Berhasil Diubah');
+        } catch (\Exception $e) {
+            toastr()->error('Data Pasien Gagal Diubah', 'Failed');
+            \Log::error('Error Update Data Pasien: '.$e->getMessage(). ' Line: '.$e->getLine(). ' File: '.$e->getFile(). ' Code: '.$e->getCode());
+            return redirect()->back()->withInput();
+        }
+        
     }
 
     /**
@@ -203,12 +430,20 @@ class PatientDataController extends Controller
     }
 
     /**
+     * Get the province from database
+     */
+    public function getProvinces()
+    {
+        $province = M_Provinsi::all();
+        return response()->json($province);
+    }
+
+    /**
      * Get the city from province
      */
     public function getCities(Request $request)
     {
         $city = M_Kabupaten::where('provinsi_id', $request->provinsi_id)->get();
-
         return response()->json($city);
     }
 
@@ -218,7 +453,6 @@ class PatientDataController extends Controller
     public function getDistrict(Request $request)
     {
         $district = M_Kecamatan::where('kabupaten_id', $request->kota_kab_id)->get();
-
         return response()->json($district);
     }
 
@@ -228,7 +462,6 @@ class PatientDataController extends Controller
     public function getVillage(Request $request)
     {
         $village = M_Kelurahan::where('kecamatan_id', $request->kecamatan_id)->get();
-
         return response()->json($village);
     }
 }
