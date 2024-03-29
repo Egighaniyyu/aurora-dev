@@ -26,10 +26,10 @@ return new class extends Migration
             $table->string('no_telepon');
             $table->string('agama');
             $table->string('gol_darah');
-            $table->string('provinsi');
-            $table->string('kabupaten');
-            $table->string('kecamatan');
-            $table->string('kelurahan');
+            $table->integer('provinsi');
+            $table->integer('kabupaten');
+            $table->integer('kecamatan');
+            $table->integer('kelurahan');
             $table->text('alamat_ktp');
             $table->text('alamat_domisili')->nullable();
             $table->string('alergi_makanan');

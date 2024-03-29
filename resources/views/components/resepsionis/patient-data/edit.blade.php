@@ -49,11 +49,10 @@
                     </li>
                 </ol>
             </nav>
-
-
             <div class="mt-4 p-8 w-full bg-white rounded-[32px]">
                 <div class="title-card mb-8">Pendaftaran Pasien Baru</div>
-                <form action="{{ route('data-pasien.store') }}" method="POST" class="w-full">
+                <form action="{{ route('data-pasien.update', $getData->uuid) }}" method="POST" class="w-full">
+                    @method('PUT')
                     @csrf
                     <div class="subtitle-large-form mb-8">Data Diri</div>
                     <div class="mb-8">
@@ -61,16 +60,18 @@
                             class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">No. Reka
                             Medis</label>
                         <input type="text" id="noRm" name="noRm"
-                            class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            value="{{ $newNoRM }}" readonly required />
+                            class="bg-[#f2f2f2] text border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            value="{{ $getData->no_rm }}" readonly required />
                     </div>
                     <div class="mb-8">
                         <label for="no_bpjs" class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">No.
                             BPJS</label>
-                        <input type="number" id="no_bpjs" name="noBpjs" minlength="13" maxlength="13"
-                            value="{{ old('noBpjs') }}"
+                        <input type="number" id="no_bpjs" name="noBpjs" maxlength="13"
+                            value="{{ old('noBpjs', $getData->no_bpjs) }}"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Masukan No. BPJS" />
+                        <span id="bpjs-warning" style="display: none; color: red;"></span>
+                        <span id="bpjs-countWarning" style="display: none; color: red;"></span>
                     </div>
                     <div class="grid gap-6 mb-8 md:grid-cols-3">
                         <div>
@@ -78,16 +79,19 @@
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Nomor
                                 Induk
                                 Kewarganegaraan (NIK)</label>
-                            <input type="number" id="nik" name="nik" minlength="16" maxlength="16"
-                                value="{{ old('nik') }}"
+                            <input type="number" id="nik" name="nik" maxlength="16"
+                                value="{{ old('nik', $getData->nik) }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan NIK" required />
+                            <span id="nik-warning" style="display: none; color: red;"></span>
+                            <span id="nik-countWarning" style="display: none; color: red;"></span>
                         </div>
                         <div>
                             <label for="namaDepan"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Nama
                                 Depan</label>
-                            <input type="text" id="namaDepan" name="namaDepan" value="{{ old('namaDepan') }}"
+                            <input type="text" id="namaDepan" name="namaDepan"
+                                value="{{ old('namaDepan', $getData->nama_depan) }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Nama Lengkap" required />
                         </div>
@@ -95,7 +99,8 @@
                             <label for="namaBelakang"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Nama
                                 Belakang</label>
-                            <input type="text" id="namaBelakang" name="namaBelakang" value="{{ old('namaBelakang') }}"
+                            <input type="text" id="namaBelakang" name="namaBelakang"
+                                value="{{ old('namaBelakang', $getData->nama_belakang) }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Nama Lengkap" />
                         </div>
@@ -105,7 +110,8 @@
                             <label for="tanggalLahir"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Tanggal
                                 Lahir</label>
-                            <input type="date" id="tanggalLahir" name="tanggalLahir" value="{{ old('tanggalLahir') }}"
+                            <input type="date" id="tanggalLahir" name="tanggalLahir"
+                                value="{{ old('tanggalLahir', date('Y-m-d', strtotime($getData->tanggal_lahir))) }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Tanggal Lahir" required />
                         </div>
@@ -117,9 +123,9 @@
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
                                 <option disabled selected>Pilih Jenis Kelamin</option>
-                                <option value="Laki-laki" @if (old('jenisKelamin') == 'Laki-laki') selected @endif>Laki-laki
+                                <option value="Laki-laki" @if (old('jenisKelamin', $getData->jenis_kelamin) == 'Laki-laki') selected @endif>Laki-laki
                                 </option>
-                                <option value="Perempuan" @if (old('jenisKelamin') == 'Perempuan') selected @endif>Perempuan
+                                <option value="Perempuan" @if (old('jenisKelamin', $getData->jenis_kelamin) == 'Perempuan') selected @endif>Perempuan
                                 </option>
                             </select>
                         </div>
@@ -127,15 +133,15 @@
                             <label for="statusMenikah"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white required-field">Status
                                 Menikah</label>
-                            <select id="statusMenikah" name="statusMenikah" value="{{ old('statusMenikah') }}"
+                            <select id="statusMenikah" name="statusMenikah"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
                                 <option disabled selected>Pilih Status Menikah</option>
-                                <option value="Belum Kawin" @if (old('statusMenikah') == 'Belum Kawin') selected @endif>Belum
-                                    Kawin</option>
-                                <option value="Kawin" @if (old('statusMenikah') == 'Kawin') selected @endif>Kawin</option>
-                                <option value="Janda" @if (old('statusMenikah') == 'Janda') selected @endif>Janda</option>
-                                <option value="Duda" @if (old('statusMenikah') == 'Duda') selected @endif>Duda</option>
+                                <option value="Belum Kawin" @if (old('statusMenikah', $getData->status_menikah) == 'Belum Kawin') selected @endif>Belum Kawin
+                                </option>
+                                <option value="Kawin" @if (old('statusMenikah', $getData->status_menikah) == 'Kawin') selected @endif>Kawin</option>
+                                <option value="Janda" @if (old('statusMenikah', $getData->status_menikah) == 'Janda') selected @endif>Janda</option>
+                                <option value="Duda" @if (old('statusMenikah', $getData->status_menikah) == 'Duda') selected @endif>Duda</option>
                             </select>
                         </div>
                         <div>
@@ -143,7 +149,8 @@
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Nama
                                 Orang
                                 Tua</label>
-                            <input type="text" id="namaOrtu" name="namaOrtu" value="{{ old('namaOrtu') }}"
+                            <input type="text" id="namaOrtu" name="namaOrtu"
+                                value="{{ old('namaOrtu', $getData->nama_orangtua) }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Orang Tua" required />
                         </div>
@@ -151,21 +158,22 @@
                             <label for="noTelepon"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Nomor
                                 Telepon</label>
-                            <input type="number" id="noTelepon" name="noTelepon" value="{{ old('noTelepon') }}"
+                            <input type="number" id="noTelepon" name="noTelepon"
+                                value="{{ old('noTelepon', $getData->no_telepon) }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan No. Telepon" required />
                         </div>
                         <div>
                             <label for="agama"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Agama</label>
-                            <select id="agama" name="agama" value="{{ old('agama') }}"
+                            <select id="agama" name="agama"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"required>
                                 <option selected disabled>Pilih Agama</option>
-                                <option value="Islam" @if (old('agama') == 'Islam') selected @endif>Islam</option>
-                                <option value="Kristen" @if (old('agama') == 'Kristen') selected @endif>Kristen</option>
-                                <option value="Hindu" @if (old('agama') == 'Hindu') selected @endif>Hindu</option>
-                                <option value="Budha" @if (old('agama') == 'Budha') selected @endif>Budha</option>
-                                <option value="Konghucu" @if (old('agama') == 'Konghucu') selected @endif>Konghucu
+                                <option value="Islam" @if (old('agama', $getData->agama) == 'Islam') selected @endif>Islam</option>
+                                <option value="Kristen" @if (old('agama', $getData->agama) == 'Kristen') selected @endif>Kristen
+                                <option value="Hindu" @if (old('agama', $getData->agama) == 'Hindu') selected @endif>Hindu
+                                <option value="Budha" @if (old('agama', $getData->agama) == 'Budha') selected @endif>Budha
+                                <option value="Konghucu" @if (old('agama', $getData->agama) == 'Konghucu') selected @endif>Konghucu
                                 </option>
                             </select>
                         </div>
@@ -173,13 +181,13 @@
                             <label for="golDarah"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Golongan
                                 Darah</label>
-                            <select id="golDarah" name="golDarah" value="{{ old('golDarah') }}"
+                            <select id="golDarah" name="golDarah"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                                 <option selected disabled>Pilih Golongan Darah</option>
-                                <option value="A" @if (old('golDarah') == 'A') selected @endif>A</option>
-                                <option value="B" @if (old('golDarah') == 'B') selected @endif>B</option>
-                                <option value="AB" @if (old('golDarah') == 'AB') selected @endif>AB</option>
-                                <option value="O" @if (old('golDarah') == 'O') selected @endif>O</option>
+                                <option value="A" @if (old('golDarah', $getData->gol_darah) == 'A') selected @endif>A</option>
+                                <option value="B" @if (old('golDarah', $getData->gol_darah) == 'B') selected @endif>B</option>
+                                <option value="AB" @if (old('golDarah', $getData->gol_darah) == 'AB') selected @endif>AB</option>
+                                <option value="O" @if (old('golDarah', $getData->gol_darah) == 'O') selected @endif>O</option>
                             </select>
                         </div>
                     </div>
@@ -189,7 +197,7 @@
                         <div>
                             <label for="provinsi"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Provinsi</label>
-                            <select id="provinsi" name="provinsi" value="{{ old('provinsi') }}"
+                            <select id="provinsi" name="provinsi"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
                             </select>
@@ -198,7 +206,7 @@
                             <label for="kota_kab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Kota /
                                 Kabupaten</label>
-                            <select id="kota_kab" name="kotaKab" value="{{ old('kotaKab') }}"
+                            <select id="kota_kab" name="kotaKab"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
                             </select>
@@ -206,7 +214,7 @@
                         <div>
                             <label for="Kecamatan"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Kecamatan</label>
-                            <select id="Kecamatan" name="kecamatan" value="{{ old('kecamatan') }}"
+                            <select id="Kecamatan" name="kecamatan"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
                             </select>
@@ -216,7 +224,7 @@
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Kelurahan
                                 /
                                 Desa</label>
-                            <select id="desa_kel" name="desaKel" value="{{ old('desaKel') }}"
+                            <select id="desa_kel" name="desaKel"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
                             </select>
@@ -229,17 +237,12 @@
                             KTP</label>
                         <textarea id="alamatKTP" rows="4" name="alamatKTP"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Masukan Alamat Sesuai KTP" required>
-@if (old('alamatKTP'))
-{{ old('alamatKTP') }}
-@endif
-</textarea>
-
+                            placeholder="Masukan Alamat Sesuai KTP" required>{{ $getData->alamat_ktp }}</textarea>
                     </div>
                     <div class="flex items-center mb-8">
                         <input type="hidden" id="checkDomisKtp" name="checkDomisKtp" value="0" required>
                         <input type="checkbox" id="domis_ktp" name="domis_ktp"
-                            @if (old('domis_ktp')) checked @endif
+                            @if ($getData->alamat_domisili == $getData->alamat_ktp) checked @endif
                             onchange="document.getElementById('checkDomisKtp').value = this.checked ? 1 : 0"
                             class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600">
                         <label for="default-checkbox" class="ms-2 font-medium text-gray-900 dark:text-gray-300">Ceklis
@@ -250,13 +253,7 @@
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Domisili</label>
                         <textarea id="alamatDomisili" name="alamat_domisili" rows="4"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                            placeholder="Masukan Alamat Domisili">
-@if (old('alamat_domisili'))
-{{ old('alamat_domisili') }}
-@elseif (old('domis_ktp'))
-{{ old('alamatKTP') }}
-@endif
-</textarea>
+                            placeholder="Masukan Alamat Domisili">{{ $getData->alamat_domisili }}</textarea>
                     </div>
                     <hr class=" border-gray-200 dark:border-gray-700 mb-8">
                     <div class="subtitle-large-form mb-8">Alergi</div>
@@ -264,21 +261,21 @@
                         <div>
                             <label for="makanan"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Makanan</label>
-                            <input type="text" id="makanan" name="makanan" value="{{ old('makanan') }}"
+                            <input type="text" id="makanan" name="makanan" value="{{ $getData->alergi_makanan }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Alergi Makanan" />
                         </div>
                         <div>
                             <label for="udara"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Udara</label>
-                            <input type="text" id="udara" name="udara" value="{{ old('udara') }}"
+                            <input type="text" id="udara" name="udara" value="{{ $getData->alergi_udara }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Alergi Udara" />
                         </div>
                         <div>
                             <label for="obat"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Obat</label>
-                            <input type="text" id="obat" name="obat" value="{{ old('obat') }}"
+                            <input type="text" id="obat" name="obat" value="{{ $getData->alergi_obat }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Alergi Obat" />
                         </div>
@@ -291,21 +288,16 @@
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Penanggung
                                 Jawab</label>
                             <select id="hubungaPenanggungJawab" name="hubungaPenanggungJawab"
-                                value="{{ old('hubungaPenanggungJawab') }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 required>
                                 <option selected disabled> Pilih Penanggung Jawab</option>
-                                <option value="Diri Sendiri" @if (old('hubungaPenanggungJawab') == 'Diri Sendiri') selected @endif>Diri
-                                    Sendiri</option>
-                                <option value="Orang Tua" @if (old('hubungaPenanggungJawab') == 'Orang Tua') selected @endif>Orang Tua
-                                </option>
-                                <option value="Suami/Istri" @if (old('hubungaPenanggungJawab') == 'Suami/Istri') selected @endif>Suami/Istri
-                                </option>
-                                <option value="Anak" @if (old('hubungaPenanggungJawab') == 'Anak') selected @endif>Anak</option>
-                                <option value="Keluarga" @if (old('hubungaPenanggungJawab') == 'Keluarga') selected @endif>Keluarga
-                                </option>
-                                <option value="Lainnya" @if (old('hubungaPenanggungJawab') == 'Lainnya') selected @endif>Lainnya
-                                </option>
+                                <option value="Diri Sendiri" @if ($getData->hubungan_penanggung_jawab == 'Diri Sendiri') selected @endif>Diri
+                                    Sendiri
+                                <option value="Orang Tua" @if ($getData->hubungan_penanggung_jawab == 'Orang Tua') selected @endif>Orang Tua
+                                <option value="Suami/Istri" @if ($getData->hubungan_penanggung_jawab == 'Suami/Istri') selected @endif>Suami/Istri
+                                <option value="Anak" @if ($getData->hubungan_penanggung_jawab == 'Anak') selected @endif>Anak
+                                <option value="Keluarga" @if ($getData->hubungan_penanggung_jawab == 'Keluarga') selected @endif>Keluarga
+                                <option value="Lainnya" @if ($getData->hubungan_penanggung_jawab == 'Lainnya') selected @endif>Lainnya
                             </select>
                         </div>
                         <div>
@@ -314,9 +306,11 @@
                                 Penanggung
                                 Jawab</label>
                             <input type="number" id="nikPenanggungJawab" name="nikPenanggungJawab"
-                                value="{{ old('nikPenanggungJawab') }}" minlength="16" maxlength="16"
+                                value="{{ $getData->nik_penanggung_jawab }}" maxlength="16"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="NIK Penanggung Jawab" required />
+                            <span id="nikPenanggungJawab-warning" style="display: none; color: red;"></span>
+                            <span id="nikPenanggungJawab-countWarning" style="display: none; color: red;"></span>
                         </div>
                         <div>
                             <label for="namaPenanggungJawab"
@@ -324,7 +318,7 @@
                                 Penanggung
                                 Jawab</label>
                             <input type="text" id="namaPenanggungJawab" name="namaPenanggungJawab"
-                                value="{{ old('namaPenanggungJawab') }}"
+                                value="{{ $getData->nama_penanggung_jawab }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Nama Penanggung Jawab" required />
                         </div>
@@ -332,7 +326,7 @@
                             <label for="noPenanggungJawab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">No. Telepon</label>
                             <input type="number" id="noPenanggungJawab" name="noPenanggungJawab"
-                                value="{{ old('noPenanggungJawab') }}"
+                                value="{{ $getData->no_telepon_penanggung_jawab }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="No. Telepon" />
                         </div>
@@ -341,19 +335,14 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Alamat Penanggung
                                 Jawab</label>
                             <textarea id="alamatPenanggungJawab" rows="4" name="alamatPenanggungJawab"
-                                value="{{ old('alamatPenanggungJawab') }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="Masukan Alamat Penanggung Jawab">
-                                @if (old('alamatPenanggungJawab'))
-{{ old('alamatPenanggungJawab') }}
-@endif
-</textarea>
+                                placeholder="Masukan Alamat Penanggung Jawab">{{ $getData->alamat_penanggung_jawab }}</textarea>
                         </div>
                         <div>
                             <label for="pekerjaanPenanggungJawab"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block">Pekerjaan</label>
                             <input type="text" id="pekerjaanPenanggungJawab" name="pekerjaanPenanggungJawab"
-                                value="{{ old('pekerjaanPenanggungJawab') }}"
+                                value="{{ $getData->pekerjaan_penanggung_jawab }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Pekerjaan" />
                         </div>
@@ -362,7 +351,8 @@
                     <div class="flex justify-end items-start gap-8 self-stretch">
                         <button type="button" class="btn btn-close btn-medium btn-secondary-blue"
                             onclick="window.location.href='{{ route('data-pasien.index') }}'">Batal</button>
-                        <button type="submit" class="btn btn-submit btn-medium btn-gradient-blue">Simpan</button>
+                        <button id="submit" type="submit"
+                            class="btn btn-submit btn-medium btn-gradient-blue">Simpan</button>
                     </div>
                 </form>
             </div>
@@ -399,7 +389,7 @@
                         );
                     $.each(res, function(id, value) {
                         // get old selected province
-                        var selected = "{{ old('provinsi') }}";
+                        var selected = "{{ $getData->provinsi }}";
                         if (selected == value.id) {
                             $("#provinsi").append(
                                 '<option value="' +
@@ -426,7 +416,7 @@
         // ------------------------------------ End Get Province ------------------------------------
 
         // ------------------------------------ Start Province ------------------------------------
-        var selectedProv = "{{ old('provinsi') }}";
+        var selectedProv = "{{ $getData->provinsi }}";
         if (selectedProv) {
             ajaxRequest = $.ajax({
                 type: "GET",
@@ -440,7 +430,7 @@
                             );
                         $.each(res, function(id, value) {
                             // get old selected city
-                            var selected = "{{ old('kotaKab') }}";
+                            var selected = "{{ $getData->kabupaten }}";
                             if (selected == value.id) {
                                 $("#kota_kab").append(
                                     '<option value="' +
@@ -485,7 +475,7 @@
             }
 
             // get from id_prov
-            var selectedCity = "{{ old('kotaKab') }}";
+            var selectedCity = "{{ $getData->kabupaten }}";
             if (selectedCity) {
                 ajaxRequest = $.ajax({
                     type: "GET",
@@ -558,7 +548,7 @@
         // ------------------------------------ End Province ------------------------------------
 
         // ------------------------------------ Start City ------------------------------------
-        var selectedCity = "{{ old('kotaKab') }}";
+        var selectedCity = "{{ $getData->kabupaten }}";
         if (selectedCity) {
             ajaxRequest = $.ajax({
                 type: "GET",
@@ -573,7 +563,7 @@
                             );
                         $.each(res, function(key, value) {
                             // get old selected district
-                            var selected = "{{ old('kecamatan') }}";
+                            var selected = "{{ $getData->kecamatan }}";
                             if (selected == value.id) {
                                 $("#Kecamatan").append(
                                     '<option value="' +
@@ -646,7 +636,7 @@
         // ------------------------------------ End City ------------------------------------
 
         // ------------------------------------ Start District ------------------------------------
-        var selectedDistrict = "{{ old('kecamatan') }}";
+        var selectedDistrict = "{{ $getData->kecamatan }}";
         if (selectedDistrict) {
             ajaxRequest = $.ajax({
                 type: "GET",
@@ -661,7 +651,7 @@
                             );
                         $.each(res, function(key, value) {
                             // get old selected village
-                            var selected = "{{ old('desaKel') }}";
+                            var selected = "{{ $getData->kelurahan }}";
                             if (selected == value.id) {
                                 $("#desa_kel").append(
                                     '<option value="' +

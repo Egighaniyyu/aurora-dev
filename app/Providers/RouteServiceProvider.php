@@ -72,7 +72,7 @@ class RouteServiceProvider extends ServiceProvider
             ->namespace($this->namespace)
             ->group(base_path('routes/web.php'));
 
-        Route::middleware(['web', 'isResepsionis', 'auth'])
+        Route::middleware(['web', 'isResepsionis', 'auth', 'verified', 'cors'])
             ->prefix('Resepsionis')
             ->namespace($this->namespace)
             ->group(base_path('routes/Resepsionis/ResepsionisRoute.php'));

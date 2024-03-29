@@ -67,7 +67,7 @@ class M_Pasien extends Model
 
     public function getRouteKeyName()
     {
-        return 'no_rm';
+        return 'uuid';
     }
 
     public function getNamaLengkapAttribute($value)
@@ -80,9 +80,9 @@ class M_Pasien extends Model
         return 'string';
     }
 
-    public function getNoTeleponAttribute($value)
+    public function getIdNoTeleponAttribute($value)
     {
-        $value = '+62 '. substr($value, 0, 3) . '-' . substr($value, 3, 4) . '-' . substr($value, 7, 4);
+        $value = '+62 '. substr($this->no_telepon, 0, 3) . '-' . substr($this->no_telepon, 3, 4) . '-' . substr($this->no_telepon, 7, 4);
         return $value;
     }
 

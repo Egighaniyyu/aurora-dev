@@ -7,6 +7,12 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 use Carbon\Carbon;
 
+# Call the model
+use App\Models\Master\Wilayah\M_Provinsi;
+use App\Models\Master\Wilayah\M_Kabupaten;
+use App\Models\Master\Wilayah\M_Kecamatan;
+use App\Models\Master\Wilayah\M_Kelurahan;
+
 /**
  * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Master\Pasien\M_Pasien>
  */
@@ -46,6 +52,11 @@ class M_PasienFactory extends Factory
             $alasan_tidak_aktif = null;
         }
 
+        $get_provinsi = M_Provinsi::all()->random();
+        $get_kabupaten = M_Kabupaten::where('provinsi_id', $get_provinsi->id)->get()->random();
+        $get_kecamatan = M_Kecamatan::where('kabupaten_id', $get_kabupaten->id)->get()->random();
+        $get_kelurahan = M_Kelurahan::where('kecamatan_id', $get_kecamatan->id)->get()->random();
+
         return [
             'uuid' => Str::uuid()->toString(),
             'no_rm' => $no_rm,
@@ -55,15 +66,15 @@ class M_PasienFactory extends Factory
             'nama_belakang' => $this->faker->lastName(),
             'tanggal_lahir' => $this->faker->date(),
             'jenis_kelamin' => $this->faker->randomElement(['Laki-laki', 'Perempuan']),
-            'status_menikah' => $this->faker->randomElement(['Kepala Keluarga', 'Istri', 'Anak']),
+            'status_menikah' => $this->faker->randomElement(['Belum Kawin', 'Kawin', 'Janda', 'Duda']),
             'nama_orangtua' => $this->faker->name(),
             'no_telepon' => $this->faker->unique()->numerify('###########'),
             'agama' => $this->faker->randomElement(['Islam', 'Kristen', 'Katolik', 'Hindu', 'Budha']),
             'gol_darah' => $this->faker->randomElement(['A', 'B', 'AB', 'O']),
-            'provinsi' => $this->faker->state(),
-            'kabupaten' => $this->faker->city(),
-            'kecamatan' => $this->faker->city(),
-            'kelurahan' => $this->faker->city(),
+            'provinsi' => $get_provinsi->id,
+            'kabupaten' => $get_kabupaten->id,
+            'kecamatan' => $get_kecamatan->id,
+            'kelurahan' => $get_kelurahan->id,
             'alamat_ktp' => $this->faker->address(),
             'alamat_domisili' => $this->faker->address(),
             'alergi_makanan' => $this->faker->randomElement(['Ya', 'Tidak']),

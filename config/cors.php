@@ -17,18 +17,62 @@ return [
 
     'paths' => ['api/*', 'sanctum/csrf-cookie'],
 
-    'allowed_methods' => ['*'],
+    /*
+    * Methods allowed for accessing the resource.
+    *
+    * @array
+    */
+    'allowed_methods' => [
+        'GET',
+        'POST',
+        'PUT',
+        'PATCH',
+        'DELETE',
+        'OPTIONS',
+    ],
 
-    'allowed_origins' => ['*'],
+    /*
+    * Paths that are exempt from CORS checks.
+    *
+    * @array
+    */
+    'allowed_origins' => [
+        '*', // Allow requests from all origins (replace with specific origins for production)
+    ],
 
     'allowed_origins_patterns' => [],
 
-    'allowed_headers' => ['*'],
+    /*
+    * Allowed headers that can be sent with the request.
+    *
+    * @array
+    */
+    'allowed_headers' => [
+        'Content-Type',
+        'X-Requested-With',
+        'Authorization',
+    ],
 
-    'exposed_headers' => [],
+    /*
+    * Exposed headers that are included in the response.
+    *
+    * @array
+    */
+    'exposed_headers' => [
+        'X-Powered-By',
+    ],
 
-    'max_age' => 0,
+    /*
+    * Maximum age for the CORS cache option.
+    *
+    * @int
+    */
+    'max_age' => 3600,
 
+    /*
+    * Supports credentials for cookies, authorization headers or TLS client certificates.
+    *
+    * @bool
+    */
     'supports_credentials' => false,
-
 ];

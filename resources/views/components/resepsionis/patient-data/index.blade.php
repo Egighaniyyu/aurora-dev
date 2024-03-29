@@ -71,9 +71,12 @@
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     No. Reka Medis
                                 </th>
-                                {{-- <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                    Jenis Layanan
-                                </th> --}}
+                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    NIK
+                                </th>
+                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    No BPJS
+                                </th>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     Nama Pasien
                                 </th>
@@ -101,9 +104,12 @@
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{ $pasien->no_rm }}
                                     </td>
-                                    {{-- <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $pasien->jenis_layanan == 1 ? 'Umum' : 'BPJS' }}
-                                    </td> --}}
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $pasien->nik }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $pasien->no_bpjs ?? '-' }}
+                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{ $pasien->nama_lengkap }}
                                     </td>
@@ -114,13 +120,13 @@
                                         {{ $pasien->jenis_kelamin }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        {{ $pasien->no_telepon }}
+                                        {{ $pasien->id_no_telepon }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         {{ $pasien->alamat_domisili }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
-                                        <a href="{{ route('data-pasien.show', $pasien->id) }}"
+                                        <a href="{{ route('data-pasien.edit', $pasien->uuid) }}"
                                             class="btn btn-small btn-gradient-blue">Lihat Detail</a>
                                     </td>
                                 </tr>

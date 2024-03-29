@@ -23,12 +23,10 @@
 
     {{-- my css --}}
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}">
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
 
     {{-- my js --}}
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    {{-- <script src="../../../assets/js/wilayah.js"></script> --}}
-    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
 
     {{-- css script --}}
     @stack('page-css')
@@ -36,7 +34,7 @@
 
 </head>
 
-<body>
+<body onload="init()">
 
     {{-- navbar --}}
     @include('partials.navbar')
@@ -58,6 +56,52 @@
         feather.replace();
     </script>
 
+    <script>
+        function init() {
+            const inputs = [{
+                    id: "nik",
+                    maxLength: 16,
+                    warning: "nik-warning",
+                    count: "nik-CountWarning"
+                },
+                {
+                    id: "no_bpjs",
+                    maxLength: 13,
+                    warning: "bpjs-warning",
+                    count: "bpjs-countWarning"
+                },
+                {
+                    id: "nikPenanggungJawab",
+                    maxLength: 16,
+                    warning: "nikPenanggungJawab-warning",
+                    count: "nikPenanggungJawab-countWarning"
+                },
+            ];
+
+            inputs.forEach(function(input) {
+                const element = document.getElementById(input.id);
+                const warning = document.getElementById(input.warning);
+                const count = document.getElementById(input.count);
+                const buttonSubmit = document.getElementById("submit");
+
+                element.addEventListener("input", function() {
+                    const currentLength = element.value.length;
+                    const remaining = input.maxLength - currentLength;
+
+                    warning.textContent = currentLength > input.maxLength ?
+                        `Lebih ${remaining} karakter` :
+                        currentLength < input.maxLength ?
+                        `Kurang ${remaining} karakter` :
+                        "";
+                    warning.style.display = currentLength !== input.maxLength ? "block" : "none";
+                    count.textContent = `${currentLength}/${input.maxLength}`;
+                    buttonSubmit.disabled = currentLength !== input.maxLength;
+                });
+            });
+        }
+
+        window.onload = init;
+    </script>
 
 </body>
 
