@@ -36,7 +36,7 @@
                             <img src="{{ asset('assets/img/care.svg') }}" alt="terdaftar">
                         </div>
                         <div class="flex flex-col items-start gap-2 self-stretch">
-                            <div class="text-[40px] font-semibold leading-[44px] text-white">25</div>
+                            <div class="text-[40px] font-semibold leading-[44px] text-white">{{ $totalPasien }}</div>
                             <div class="text-base font-medium left-[22.4px] text-white">Sudah Terdaftar</div>
                         </div>
                     </div>
@@ -46,8 +46,9 @@
                             <img src="{{ asset('assets/img/medical-equipment.svg') }}" alt="belum terdaftar">
                         </div>
                         <div class="flex flex-col items-start gap-2 self-stretch">
-                            <div class="text-[40px] font-semibold leading-[44px] text-white">25</div>
-                            <div class="text-base font-medium left-[22.4px] text-white">Belum Terdaftar</div>
+                            <div class="text-[40px] font-semibold leading-[44px] text-white">{{ $pasienBelumDilayani }}
+                            </div>
+                            <div class="text-base font-medium left-[22.4px] text-white">Belum Dilayani</div>
                         </div>
                     </div>
                     <div
@@ -56,7 +57,8 @@
                             <img src="{{ asset('assets/img/health.svg') }}" alt="sudah dilayani">
                         </div>
                         <div class="flex flex-col items-start gap-2 self-stretch">
-                            <div class="text-[40px] font-semibold leading-[44px] text-white">25</div>
+                            <div class="text-[40px] font-semibold leading-[44px] text-white">{{ $pasienSudahDilayani }}
+                            </div>
                             <div class="text-base font-medium left-[22.4px] text-white">Sudah Dilayani</div>
                         </div>
                     </div>
@@ -69,25 +71,28 @@
 
                         <button id="dropdownDefaultButton" data-dropdown-toggle="dropdown"
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            type="button">Pilih Waktu <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
+                            type="button">Bulanan <svg class="w-2.5 h-2.5 ms-3" aria-hidden="true"
                                 xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="m1 1 4 4 4-4" />
                             </svg>
                         </button>
 
-                        <!-- Dropdown menu -->
                         <div id="dropdown"
-                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 relative z-20 border border-black-500 shadow-md rounded-lg">
+                            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200 dropdown-content"
                                 aria-labelledby="dropdownDefaultButton">
                                 <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Mingguan</a>
+                                    <a id="bulanan"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white dropdown-item">Bulanan</a>
                                 </li>
                                 <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Bulanan</a>
+                                    <a id="mingguan"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white dropdown-item">Mingguan</a>
+                                </li>
+                                <li>
+                                    <a id="harian"
+                                        class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white dropdown-item">Harian</a>
                                 </li>
                             </ul>
                         </div>
@@ -151,134 +156,27 @@
             </div>
         </div>
     </div>
+
+    <input type="hidden" id="jenisPasien" value="{{ json_encode($jenisPasien) }}">
+
+    <input type="hidden" id="monthDataUmum" value="{{ json_encode($monthDataUmum) }}">
+    <input type="hidden" id="monthDataBpjs" value="{{ json_encode($monthDataBpjs) }}">
+    <input type="hidden" id="monthDataRujukan" value="{{ json_encode($monthDataRujukan) }}">
+    <input type="hidden" id="monthDate" value="{{ json_encode($dateMonth) }}">
+
+    <input type="hidden" id="weekDataUmum" value="{{ json_encode($weekDataUmum) }}">
+    <input type="hidden" id="weekDataBpjs" value="{{ json_encode($weekDataBpjs) }}">
+    <input type="hidden" id="weekDataRujukan" value="{{ json_encode($weekDataRujukan) }}">
+    <input type="hidden" id="weekDate" value="{{ json_encode($dateWeek) }}">
+
+    <input type="hidden" id="dayDataUmum" value="{{ json_encode($dayDataUmum) }}">
+    <input type="hidden" id="dayDataBpjs" value="{{ json_encode($dayDataBpjs) }}">
+    <input type="hidden" id="dayDataRujukan" value="{{ json_encode($dayDataRujukan) }}">
+    <input type="hidden" id="dayDate" value="{{ json_encode($dateDay) }}">
 @endsection
 
 @push('page-scripts')
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
-    <script>
-        // chart kunjungan pasien
-        var options_kunjungan = {
-            series: [{
-                name: 'Umum',
-                data: [31, 40, 28, 51, 42, 80, 90]
-            }, {
-                name: 'BPJS',
-                data: [11, 32, 45, 32, 34, 52, 41]
-            }, {
-                name: 'Rujukan',
-                data: [20, 30, 40, 31, 33, 45, 50]
-            }],
-            colors: ['#0EB0F1', '#FE8947', '#FED575'],
-            chart: {
-                height: 350,
-                type: 'area'
-            },
-            dataLabels: {
-                enabled: false
-            },
-            stroke: {
-                curve: 'smooth'
-            },
-            xaxis: {
-                type: "datetime",
-                categories: [
-                    "3/11/2024",
-                    "3/12/2024",
-                    "3/13/2024",
-                    "3/14/2024",
-                    "3/15/2024",
-                    "3/16/2024",
-                    "3/17/2024",
-                ]
-            },
-            tooltip: {
-                x: {
-                    format: 'dd MMM yyyy'
-                },
-            },
-            legend: {
-                position: 'top',
-                horizontalAlign: 'left',
-            },
-
-        };
-
-        var chart_kunjungan = new ApexCharts(document.querySelector("#chart_kunjungan"), options_kunjungan);
-        chart_kunjungan.render();
-        // end chart kunjungan pasien
-
-        // chart jenis pasien
-        var options_jenis_pasien = {
-            series: [44, 55],
-            labels: ['BPJS', 'Umum'],
-            colors: ['#0EB0F1', '#FE8947'],
-            chart: {
-                height: 300,
-                type: 'donut',
-            },
-            plotOptions: {
-                pie: {
-                    startAngle: -90,
-                    endAngle: 270,
-                    donut: {
-                        size: "50%"
-                    }
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            fill: {
-                type: 'gradient',
-            },
-            legend: {
-                position: 'bottom',
-                horizontalAlign: 'center',
-            },
-            responsive: [{
-                breakpoint: 480,
-                options: {
-                    chart: {
-                        // width: 200
-                    },
-                    legend: {
-                        position: 'bottom'
-                    }
-                }
-            }]
-        };
-
-        var chart_jenis_pasien = new ApexCharts(document.querySelector("#chart_jenis_pasien"), options_jenis_pasien);
-        chart_jenis_pasien.render();
-        // end chart jenis pasien
-
-        // chart icd
-        var options_icd = {
-            series: [{
-                data: [400, 430, 448, 470, 540]
-            }],
-            colors: ['#0EB0F1'],
-            chart: {
-                type: 'bar',
-                height: 350
-            },
-            plotOptions: {
-                bar: {
-                    borderRadius: 4,
-                    horizontal: true,
-                }
-            },
-            dataLabels: {
-                enabled: false
-            },
-            xaxis: {
-                categories: ['Z00', 'J00', 'A28', 'X00', 'F00'],
-            }
-        };
-
-        var chart_icd = new ApexCharts(document.querySelector("#chart_icd"), options_icd);
-        chart_icd.render();
-        // end chart icd
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="{{ asset('assets/js/chartDashboard.js') }}"></script>
 @endpush

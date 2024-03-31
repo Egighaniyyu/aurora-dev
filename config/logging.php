@@ -60,14 +60,14 @@ return [
 
         'single' => [
             'driver' => 'single',
-            'path' => storage_path('logs/single/'.date('Y-m-d').'/laravel-'.date('Y-m-d').'.log'),
+            'path' => storage_path('logs/single/'.date('Y-M').'/laravel-'.date('Y-m-d').'.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'replace_placeholders' => true,
         ],
 
         'daily' => [
             'driver' => 'daily',
-            'path' => storage_path('logs/daily/'.date('Y-m-d').'/laravel-'.date('Y-m-d').'.log'),
+            'path' => storage_path('logs/daily/'.date('Y-M').'/laravel-'.date('Y-m-d').'.log'),
             'level' => env('LOG_LEVEL', 'debug'),
             'days' => 14,
             'replace_placeholders' => true,

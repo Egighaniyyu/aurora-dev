@@ -18,10 +18,10 @@ class M_WilayahSeeder extends Seeder
      */
     public function run(): void
     {
-        $file_prov = public_path('json/provinsi.json');
-        $file_kab = public_path('json/kabupaten.json');
-        $file_kec = public_path('json/kecamatan.json');
-        $file_kel = public_path('json/kelurahan.json');
+        $file_prov = storage_path('json/provinsi.json');
+        $file_kab = storage_path('json/kabupaten.json');
+        $file_kec = storage_path('json/kecamatan.json');
+        $file_kel = storage_path('json/kelurahan.json');
 
         $prov = json_decode(file_get_contents($file_prov), true);
         $kab = json_decode(file_get_contents($file_kab), true);

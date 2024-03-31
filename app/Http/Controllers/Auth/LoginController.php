@@ -9,6 +9,8 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Auth;
 use Session;
+use Closure;
+use Illuminate\Contracts\Auth\Guard;
 
 # Call Models
 use App\Models\User;
@@ -30,20 +32,46 @@ class LoginController extends Controller
     use AuthenticatesUsers;
 
     /**
-     * Where to redirect users after login.
+     * The Guard implementation.
      *
-     * @var string
+     * @var Guard
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $auth;
 
     /**
-     * Create a new controller instance.
+     * Create a new filter instance.
      *
+     * @param  Guard  $auth
      * @return void
      */
-    public function __construct()
+    public function __construct(Guard $auth)
     {
-        $this->middleware('guest')->except('logout');
+        $this->auth = $auth;
+    }
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Closure  $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if ($this->auth->guest())
+        {
+            if ($request->ajax())
+            {
+                return response('Unauthorized.', 401);
+            }
+            else
+            {
+                return redirect()->guest('auth/login');
+                // return redirect()->guest('/');
+            }
+        }
+
+        return $next($request);
     }
 
     /**
@@ -53,6 +81,11 @@ class LoginController extends Controller
      */
     public function login(Request $request)
     {
+        $checkToken = $request->input('_token');
+        if($checkToken != csrf_token()){
+            return redirect()->route('login')->withInput()->with('error', 'Token is invalid');
+        }
+
         $input = $request->all();
         $validator = Validator::make($input, [
             'user' => 'required',
@@ -68,16 +101,37 @@ class LoginController extends Controller
             return redirect()->route('login');
         }
         
-        // login with email or username
-        $login = request()->input('user');
-        $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
-        if (Auth::attempt(array($field => $input['user'], 'password' => $input['password'])))
-        {   
-            return redirect()->route('resepsionis.index')->with('success', 'Login Successfully');
-        }
-        else{
-            Auth::logout();
-            return redirect()->route('login')->with('error', 'username or password is incorrect');
+        
+        try{
+            // login with email or username
+            $login = request()->input('user');
+            $field = filter_var($login, FILTER_VALIDATE_EMAIL) ? 'email' : 'name';
+            if (Auth::attempt(array($field => $input['user'], 'password' => $input['password'])))
+            {   
+                $getIP = $request->ip();
+                $realIpAddress = $request->getClientIp();
+                $userAgent = $request->userAgent();
+                // $user = Auth::user();
+                // $user->last_login = now();
+                // $user->last_ip = $realIpAddress;
+                // $user->last_user_agent = $userAgent;
+                // $user->save();
+                $formatLog = [
+                    'ip_address' => $realIpAddress,
+                    'user_agent' => $userAgent,
+                    'login_at' => now(),
+                ];
+                \Log::info('User Login : user_id:'.Auth::user()->id, $formatLog);
+                return redirect()->route('resepsionis.index')->with('success', 'Login Successfully');
+            }
+            else{
+                Auth::logout();
+                return redirect()->route('login')->with('error', 'username or password is incorrect');
+            }
+        }catch(\Exception $e){
+            toastr()->error($e->getMessage());
+            \Log::error('Error Login', ['error' => $e->getMessage()]);
+            return redirect()->route('login');
         }
     }
 
@@ -88,8 +142,23 @@ class LoginController extends Controller
      */
     public function logout(Request $request)
     {
-        Auth::logout();
-        return redirect()->route('login')->with('success', 'Logout Successfully');
+        try {
+            $getIP = $request->ip();
+            $realIpAddress = $request->getClientIp();
+            $userAgent = $request->userAgent();
+            $formatLog = [
+                'ip_address' => $realIpAddress,
+                'user_agent' => $userAgent,
+                'logout_at' => now(),
+            ];
+            \Log::info('User Logout : user_id:'.Auth::user()->id, $formatLog);
+            Auth::logout();
+            return redirect()->route('login')->with('success', 'Logout Successfully');
+        } catch (\Exception $e) {
+            toastr()->error($e->getMessage());
+            \Log::error('Error Logout', ['error' => $e->getMessage()]);
+            return redirect()->route('login');
+        }
     }
 
     /**

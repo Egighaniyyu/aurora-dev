@@ -8,7 +8,7 @@
 @endpush
 
 @section('content')
-    <div class="p-4 sm:ml-64">
+    <div class="p-4 sm:ml-64" onload="init()">
         <div class="mt-14">
 
             <nav class="flex" aria-label="Breadcrumb">
@@ -360,6 +360,7 @@
     </div>
 @endsection
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+{{-- Start Dynamic dependent --}}
 <script>
     $(document).ready(function() {
         var ajaxRequest;
@@ -721,6 +722,7 @@
         // ------------------------------------ End District ------------------------------------
     });
 </script>
+{{-- End Dynamic dependent --}}
 
 @push('page-scripts')
     @push('page-scripts')

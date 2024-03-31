@@ -6,11 +6,13 @@ use App\Http\Controllers\Resepsionis\PatientExaminationController as Resepsionis
 use Illuminate\Support\Facades\Route;
 
 Route::resource('/resepsionis', ResepsionisDashboardController::class);
-Route::resource('/data-pasien', ResepsionisPatientDataController::class);
-Route::resource('/antrian-pasien', ResepsionisPatientExaminationController::class);
 
+Route::resource('/data-pasien', ResepsionisPatientDataController::class);
 Route::Get('provinces', [ResepsionisPatientDataController::class, 'getProvinces'])->name('data-pasien.provinces');
 Route::Get('cities', [ResepsionisPatientDataController::class, 'getCities'])->name('data-pasien.cities');
 Route::Get('districts', [ResepsionisPatientDataController::class, 'getDistrict'])->name('data-pasien.districts');
 Route::Get('villages', [ResepsionisPatientDataController::class, 'getVillage'])->name('data-pasien.villages');
+
+Route::resource('/antrian-pasien', ResepsionisPatientExaminationController::class);
+Route::Get('get-patient', [ResepsionisPatientExaminationController::class, 'getPatient'])->name('antrian-pasien.get-patient');
 
