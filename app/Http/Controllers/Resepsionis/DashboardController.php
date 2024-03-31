@@ -22,9 +22,9 @@ class DashboardController extends Controller
         $totalPasien = $getPatientExamination->count();
         $pasienBelumDilayani = $getPatientExamination->where('status', 1)->count();
         $pasienSudahDilayani = $getPatientExamination->where('status', 2)->count();
-        $totalUmum = $getPatientExamination->where('jenis_layanan', 1)->count();
-        $totalBpjs = $getPatientExamination->where('jenis_layanan', 2)->count();
-        $totalRujukan = $getPatientExamination->where('jenis_layanan', 3)->count();
+        $totalUmum = $getPatientExamination->where('jenis_layanan', 1)->where('status', 2)->count();
+        $totalBpjs = $getPatientExamination->where('jenis_layanan', 2)->where('status', 2)->count();
+        $totalRujukan = $getPatientExamination->where('jenis_layanan', 3)->where('status', 2)->count();
         $jenisPasien = [$totalBpjs, $totalUmum, $totalRujukan];
         
         $layananUmumWeek = $getPatientExamination->where('jenis_layanan', 1)->where('created_at', '>=', now()->subWeek())->count();
