@@ -138,7 +138,6 @@
                         </tbody>
                     </table>
                 </div>
-                {{-- {{ $getData->links('vendor.pagination.tailwind') }} --}}
                 {{-- pagination --}}
                 @if ($getData->hasPages())
                     <div class="flex justify-between bg-gray-200 p-4 rounded-md space-x-4">
@@ -179,7 +178,6 @@
                 @endif
             </div>
         </div>
-    </div>
     </div>
 @endsection
 

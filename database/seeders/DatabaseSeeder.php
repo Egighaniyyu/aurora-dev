@@ -33,6 +33,6 @@ class DatabaseSeeder extends Seeder
         ]);
 
         M_Pasien::factory(200)->create();
-        RP_PatientExamination::factory(200)->create();
+        RP_PatientExamination::factory(1000)->create();
     }
 }

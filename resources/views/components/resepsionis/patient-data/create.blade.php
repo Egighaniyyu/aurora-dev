@@ -8,7 +8,7 @@
 @endpush
 
 @section('content')
-    <div class="p-4 sm:ml-64">
+    <div class="p-4 sm:ml-64" onload="init()">
         <div class="mt-14">
 
             <nav class="flex" aria-label="Breadcrumb">
@@ -71,6 +71,8 @@
                             value="{{ old('noBpjs') }}"
                             class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                             placeholder="Masukan No. BPJS" />
+                        <span id="bpjs-warning" style="display: none; color: red;"></span>
+                        <span id="bpjs-countWarning" style="display: none; color: red;"></span>
                     </div>
                     <div class="grid gap-6 mb-8 md:grid-cols-3">
                         <div>
@@ -82,6 +84,8 @@
                                 value="{{ old('nik') }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan NIK" required />
+                            <span id="nik-warning" style="display: none; color: red;"></span>
+                            <span id="nik-countWarning" style="display: none; color: red;"></span>
                         </div>
                         <div>
                             <label for="namaDepan"
@@ -105,7 +109,8 @@
                             <label for="tanggalLahir"
                                 class="mb-2 text-sm font-medium text-gray-900 dark:text-white block required-field">Tanggal
                                 Lahir</label>
-                            <input type="date" id="tanggalLahir" name="tanggalLahir" value="{{ old('tanggalLahir') }}"
+                            <input type="date" id="tanggalLahir" name="tanggalLahir"
+                                value="{{ old('tanggalLahir') }}"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="Masukan Tanggal Lahir" required />
                         </div>
@@ -317,6 +322,8 @@
                                 value="{{ old('nikPenanggungJawab') }}" minlength="16" maxlength="16"
                                 class="bg-[#f2f2f2] border border-gray-300 text-gray-900 text-base rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full px-5 py-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                 placeholder="NIK Penanggung Jawab" required />
+                            <span id="nikPenanggungJawab-warning" style="display: none; color: red;"></span>
+                            <span id="nikPenanggungJawab-countWarning" style="display: none; color: red;"></span>
                         </div>
                         <div>
                             <label for="namaPenanggungJawab"
@@ -362,7 +369,8 @@
                     <div class="flex justify-end items-start gap-8 self-stretch">
                         <button type="button" class="btn btn-close btn-medium btn-secondary-blue"
                             onclick="window.location.href='{{ route('data-pasien.index') }}'">Batal</button>
-                        <button type="submit" class="btn btn-submit btn-medium btn-gradient-blue">Simpan</button>
+                        <button id="submit" type="submit"
+                            class="btn btn-submit btn-medium btn-gradient-blue">Simpan</button>
                     </div>
                 </form>
             </div>

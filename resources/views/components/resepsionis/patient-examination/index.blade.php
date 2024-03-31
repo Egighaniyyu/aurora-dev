@@ -74,16 +74,19 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    No. Reka Medis
+                                </th>
+                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     No. Registrasi
+                                </th>
+                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
+                                    Status
                                 </th>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     Jenis Kunjunagn
                                 </th>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     Tanggal Masuk
-                                </th>
-                                <th scope="col" class="px-6 py-3 whitespace-nowrap">
-                                    No. Reka Medis
                                 </th>
                                 <th scope="col" class="px-6 py-3 whitespace-nowrap">
                                     Nama Pasien
@@ -100,39 +103,92 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr
-                                class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    PU0001
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    Rawat Jalan
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    20 Maret 2024
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    01-00-01
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    Diagy Ghaniyyu Muqsit
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    Poli Umum
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    25.5 C
-                                </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
-                                    <a href="#" class="btn btn-small btn-gradient-blue">Lihat Detail</a>
-                                </td>
-                            </tr>
-
+                            @forelse ($getData as $data)
+                                <tr
+                                    class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $data->no_rm }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $data->no_registrasi }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if ($data->status == '1')
+                                            <span
+                                                class="px-2 py-1 text-xs font-medium text-white bg-red-500 rounded-full">Belum
+                                                Dilayani</span>
+                                        @else
+                                            <span
+                                                class="px-2 py-1 text-xs font-medium text-white bg-green-500 rounded-full">Sudah
+                                                Dilayani</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $data->jenis_kunjungan == '1' ? 'Rawat Jalan' : ($data->jenis_kunjungan == '2' ? 'Rawat Inap' : 'Kunjungan Sehat') }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ date('d F Y', strtotime($data->tanggal_pendaftaran)) }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $data->patient->nama_depan }} {{ $data->patient->nama_belakang }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $data->poli_tujuan == '1' ? 'Poli Umum' : ($data->poli_tujuan == '2' ? 'Poli Gigi' : 'KIA') }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {{ $data->suhu_badan }} °C
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <a href="{{ route('antrian-pasien.edit', $data->uuid) }}"
+                                            class="btn btn-small btn-gradient-blue">Lihat Detail</a>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="8" class="text-center p-4">Data tidak ditemukan</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
+                {{-- pagination --}}
+                @if ($getData->hasPages())
+                    <div class="flex justify-between bg-gray-200 p-4 rounded-md space-x-4">
+                        <div class="text-gray-700">
+                            Showing {{ $getData->firstItem() }} to {{ $getData->lastItem() }} of {{ $getData->total() }}
+                        </div>
+                        <!-- Previous Page Link -->
+                        @if (!$getData->onFirstPage())
+                            <a href="{{ $getData->previousPageUrl() }}"
+                                class="relative inline-flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 hover:bg-gray-300 rounded-md">
+                                Previous
+                            </a>
+                        @endif
 
+                        <!-- Pagination Elements -->
+                        <div class="flex space-x-2">
+                            @foreach (range(1, $getData->lastPage()) as $i)
+                                @if ($i == $getData->currentPage())
+                                    <span
+                                        class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-white bg-blue-500 border border-blue-500 cursor-default leading-5 rounded-md">{{ $i }}</span>
+                                @else
+                                    <a href="{{ $getData->url($i) }}"
+                                        class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 hover:bg-gray-300 rounded-md">
+                                        {{ $i }}
+                                    </a>
+                                @endif
+                            @endforeach
+                        </div>
 
+                        <!-- Next Page Link -->
+                        @if ($getData->hasMorePages())
+                            <a href="{{ $getData->nextPageUrl() }}"
+                                class="relative inline-flex items-center px-4 py-2 -ml-px text-sm font-medium text-gray-700 bg-white border border-gray-300 leading-5 hover:text-gray-500 hover:bg-gray-300 rounded-md">
+                                Next
+                            </a>
+                        @endif
+                    </div>
+                @endif
             </div>
         </div>
     </div>
